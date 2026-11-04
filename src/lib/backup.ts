@@ -1,4 +1,4 @@
-import { clearDrawings, listDrawings, putDrawing, type DrawingRecord, type ProgressData } from './db';
+import { clearCustomGuides, clearDrawings, listCustomGuides, listDrawings, putCustomGuide, putDrawing, type CustomGuide, type DrawingRecord, type ProgressData } from './db';
 import { blobToDataURL, dataURLToBlob } from './images';
 
 interface BackupFile {
@@ -7,6 +7,7 @@ interface BackupFile {
   exportedAt: string;
   progress: ProgressData;
   drawings: (Omit<DrawingRecord, 'image' | 'thumb'> & { image: string; thumb: string })[];
+  customGuides?: (Omit<CustomGuide, 'steps'> & { steps: (Omit<CustomGuide['steps'][number], 'image'> & { image: string })[] })[];
 }
 
 export async function exportBackup(progress: ProgressData): Promise<Blob> {
@@ -16,7 +17,10 @@ export async function exportBackup(progress: ProgressData): Promise<Blob> {
     format: 1,
     exportedAt: new Date().toISOString(),
     progress,
-    drawings: await Promise.all(drawings.map(async (d) => ({ ...d, image: await blobToDataURL(d.image), thumb: await blobToDataURL(d.thumb) })))
+    drawings: await Promise.all(drawings.map(async (d) => ({ ...d, image: await blobToDataURL(d.image), thumb: await blobToDataURL(d.thumb) }))),
+    customGuides: await Promise.all(
+      (await listCustomGuides()).map(async (g) => ({ ...g, steps: await Promise.all(g.steps.map(async (s) => ({ ...s, image: await blobToDataURL(s.image) }))) }))
+    )
   };
   return new Blob([JSON.stringify(data)], { type: 'application/json' });
 }
@@ -39,6 +43,13 @@ export async function restoreDrawings(data: BackupFile) {
   );
   await clearDrawings();
   for (const d of decoded) await putDrawing(d);
+  if (data.customGuides) {
+    const guides: CustomGuide[] = await Promise.all(
+      data.customGuides.map(async (g) => ({ ...g, steps: await Promise.all(g.steps.map(async (s) => ({ ...s, image: await dataURLToBlob(s.image) }))) }))
+    );
+    await clearCustomGuides();
+    for (const g of guides) await putCustomGuide(g);
+  }
   return decoded.length;
 }
 

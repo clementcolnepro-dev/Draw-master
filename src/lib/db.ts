@@ -36,20 +36,32 @@ export interface DrawingRecord {
   height: number;
 }
 
+/** Modèle pas à pas créé par l'utilisateur à partir de ses propres images (reste sur l'appareil). */
+export interface CustomGuide {
+  id: string;
+  createdAt: string;
+  title: string;
+  steps: { image: Blob; caption: string; width: number; height: number }[];
+}
+
 interface DMSchema extends DBSchema {
   kv: { key: string; value: unknown };
   drawings: { key: string; value: DrawingRecord; indexes: { byDate: string } };
+  customGuides: { key: string; value: CustomGuide };
 }
 
 let dbp: Promise<IDBPDatabase<DMSchema>> | null = null;
 
 export function db() {
   if (!dbp) {
-    dbp = openDB<DMSchema>('draw-master', 1, {
-      upgrade(d) {
-        d.createObjectStore('kv');
-        const s = d.createObjectStore('drawings', { keyPath: 'id' });
-        s.createIndex('byDate', 'date');
+    dbp = openDB<DMSchema>('draw-master', 2, {
+      upgrade(d, oldVersion) {
+        if (oldVersion < 1) {
+          d.createObjectStore('kv');
+          const s = d.createObjectStore('drawings', { keyPath: 'id' });
+          s.createIndex('byDate', 'date');
+        }
+        if (oldVersion < 2) d.createObjectStore('customGuides', { keyPath: 'id' });
       }
     });
   }
@@ -104,3 +116,25 @@ export async function clearDrawings() {
 }
 
 export const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+export async function listCustomGuides(): Promise<CustomGuide[]> {
+  const all = await (await db()).getAll('customGuides');
+  return all.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+export async function getCustomGuide(id: string) {
+  return (await db()).get('customGuides', id);
+}
+export async function putCustomGuide(g: CustomGuide) {
+  await (await db()).put('customGuides', g);
+  try {
+    await navigator.storage?.persist?.();
+  } catch {
+    /* ignoré */
+  }
+}
+export async function deleteCustomGuide(id: string) {
+  await (await db()).delete('customGuides', id);
+}
+export async function clearCustomGuides() {
+  await (await db()).clear('customGuides');
+}

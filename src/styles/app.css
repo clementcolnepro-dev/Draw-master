@@ -324,3 +324,19 @@ textarea { resize: vertical; }
 @media (min-width: 700px) {
   .guide-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Mes modèles (images perso) */
+.photo-thumb { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 8px; display: block; }
+.add-card { align-items: center; justify-content: center; text-align: center; border-style: dashed; min-height: 160px; }
+.add-card .plus { font-size: 2rem; color: var(--gold); line-height: 1; }
+.photo-step { background: #fff; border-radius: 10px; overflow: hidden; cursor: zoom-in; }
+.photo-step img { display: block; width: 100%; max-height: 54vh; object-fit: contain; }
+.photo-step.zoom { cursor: zoom-out; }
+.photo-step.zoom img { max-height: none; }
+.thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; border-radius: 8px; background: #fff; display: block; }
+.cg-list { list-style: none; padding: 0; margin: .8rem 0; }
+.cg-item { display: flex; gap: 10px; align-items: flex-start; }
+.cg-img { position: relative; flex: none; width: 84px; }
+.cg-img img, .cg-img .img-ph { width: 84px; height: 110px; object-fit: cover; object-position: top; border-radius: 8px; background: #fff; display: block; }
+.cg-num { position: absolute; top: 4px; left: 4px; background: var(--gold); color: #1c1b19; font-weight: 700; font-size: .75rem; border-radius: 6px; padding: 0 6px; }
+.btn.danger.wide { margin-top: .6rem; }

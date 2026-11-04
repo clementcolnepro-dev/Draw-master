@@ -5,6 +5,8 @@ import { SvgDefs } from './components/Figure';
 import Home from './pages/Home';
 import GuideCatalog from './pages/GuideCatalog';
 import GuideViewer from './pages/GuideViewer';
+import CustomGuideEdit from './pages/CustomGuideEdit';
+import CustomGuideViewer from './pages/CustomGuideViewer';
 import Learn from './pages/Learn';
 import ModulePage from './pages/ModulePage';
 import LessonPage from './pages/LessonPage';
@@ -50,6 +52,9 @@ function Shell() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dessiner" element={<GuideCatalog />} />
+            <Route path="/dessiner/perso/nouveau" element={<CustomGuideEdit />} />
+            <Route path="/dessiner/perso/:id/modifier" element={<CustomGuideEdit />} />
+            <Route path="/dessiner/perso/:id" element={<CustomGuideViewer />} />
             <Route path="/dessiner/:guideId" element={<GuideViewer />} />
             <Route path="/apprendre" element={<Learn />} />
             <Route path="/apprendre/:moduleId" element={<ModulePage />} />
