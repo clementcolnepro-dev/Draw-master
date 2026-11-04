@@ -3,7 +3,7 @@ import { listCustomGuides, type CustomGuide } from '../lib/db';
 import { BlobImg } from '../components/Thumb';
 import { Link, useLocation } from 'react-router-dom';
 import { guideCategories } from '../content/guides';
-import { StepFigure } from '../components/Figure';
+import { GuideCover } from '../components/GuideFigure';
 import { useProgress } from '../lib/progress';
 import { PageHeader } from '../components/ui';
 
@@ -74,7 +74,7 @@ export default function GuideCatalog() {
             {c.guides.map((g) => (
               <Link key={g.id} to={`/dessiner/${g.id}`} className="guide-card">
                 <div className="guide-thumb">
-                  <StepFigure drawing={g} step={g.layers.length - 1} showAll clean highlight={false} />
+                  <GuideCover g={g} />
                   {p.guides[g.id] && <span className="done-badge">✓</span>}
                 </div>
                 <b>{g.title}</b>

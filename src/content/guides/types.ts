@@ -13,6 +13,10 @@ export interface Guide {
   viewBox: string;
   /** Un calque par étape ; l'étape n affiche les calques 0..n. */
   layers: ReactNode[];
+  /** Variante en images : une image par étape (chemins relatifs à public/). Remplace les calques. */
+  images?: string[];
+  /** Auteur des dessins, si ce n'est pas un schéma généré. */
+  author?: string;
   steps: GuideStep[];
 }
 

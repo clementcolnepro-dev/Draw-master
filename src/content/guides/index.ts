@@ -1,5 +1,6 @@
 import type { Guide, GuideCategory } from './types';
 import { corpsFemme, corpsHomme } from './corps';
+import { corpsFemmeClement } from './clement';
 import { teteFace, oreille, pied, jean, robe } from './nouveaux';
 import { allLessons } from '../index';
 
@@ -16,6 +17,7 @@ export const guideCategories: GuideCategory[] = [
     subtitle: 'Des lignes générales à la silhouette',
     icon: '⟟',
     guides: [
+      corpsFemmeClement,
       corpsFemme,
       corpsHomme,
       fromLesson('c1-proportions', 'Proportions : la grille de 8 têtes', 'Facile'),

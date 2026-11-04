@@ -340,3 +340,5 @@ textarea { resize: vertical; }
 .cg-img img, .cg-img .img-ph { width: 84px; height: 110px; object-fit: cover; object-position: top; border-radius: 8px; background: #fff; display: block; }
 .cg-num { position: absolute; top: 4px; left: 4px; background: var(--gold); color: #1c1b19; font-weight: 700; font-size: .75rem; border-radius: 6px; padding: 0 6px; }
 .btn.danger.wide { margin-top: .6rem; }
+.guide-img { display: block; width: 100%; max-height: 54vh; object-fit: contain; background: #fff; border-radius: 10px; }
+.guide-img.thumb-img { aspect-ratio: 1; object-fit: cover; object-position: top; max-height: none; border-radius: 8px; }

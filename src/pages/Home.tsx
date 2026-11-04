@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useProgress, stats } from '../lib/progress';
 import { dailyExercises, isDone } from '../lib/daily';
 import { allGuides, guideById, categoryOfGuide } from '../content/guides';
-import { StepFigure } from '../components/Figure';
+import { GuideCover } from '../components/GuideFigure';
 import { Bar, Ring, Section } from '../components/ui';
 
 function greeting() {
@@ -51,7 +51,7 @@ export default function Home() {
       {next && (
         <Link to={`/dessiner/${next.id}`} className="card resume resume-guide">
           <div className="resume-thumb">
-            <StepFigure drawing={next} step={next.layers.length - 1} showAll clean highlight={false} />
+            <GuideCover g={next} />
           </div>
           <div className="grow">
             <div className="kicker">{p.lastGuide === next.id ? 'Reprendre' : 'À dessiner'} · {categoryOfGuide(next.id)?.title}</div>

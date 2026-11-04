@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { categoryOfGuide, guideById } from '../content/guides';
-import { StepFigure } from '../components/Figure';
+import { GuideFigure } from '../components/GuideFigure';
 import { useProgress, useStudyTime } from '../lib/progress';
 import { PageHeader } from '../components/ui';
 import NotFound from './NotFound';
@@ -69,7 +69,7 @@ export default function GuideViewer() {
       <PageHeader title={g.title} kicker={`${cat.icon} ${cat.title}`} back={`/dessiner#${cat.id}`} />
 
       <div
-        className="viewer-fig"
+        className={g.images ? "viewer-fig photo-step" : "viewer-fig"}
         onTouchStart={(e) => (touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY })}
         onTouchEnd={(e) => {
           const t = touch.current;
@@ -80,7 +80,7 @@ export default function GuideViewer() {
           if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) go(step + (dx < 0 ? 1 : -1));
         }}
       >
-        <StepFigure drawing={g} step={step} clean={clean} highlight={prefs.highlight && !clean} />
+        <GuideFigure g={g} step={step} clean={clean} highlight={prefs.highlight && !clean} />
         <div className="step-badge">
           {step + 1} / {n}
         </div>
@@ -103,12 +103,15 @@ export default function GuideViewer() {
       <div className="thumbs" ref={strip} role="tablist" aria-label="Toutes les étapes">
         {g.steps.map((s, i) => (
           <button key={i} role="tab" aria-selected={i === step} className={i === step ? 'thumb on' : 'thumb'} onClick={() => go(i)} title={s.title}>
-            <StepFigure drawing={g} step={i} highlight={prefs.highlight} />
+            <GuideFigure g={g} step={i} highlight={prefs.highlight} thumb />
             <span>{i + 1}</span>
           </button>
         ))}
       </div>
 
+      {g.images ? (
+        <p className="tiny muted">Dessins de {g.author || 'l’auteur'}.</p>
+      ) : (
       <div className="chips">
         <button className={prefs.highlight ? 'chip on' : 'chip'} onClick={() => setPrefs({ ...prefs, highlight: !prefs.highlight })}>
           Nouveau trait en couleur
@@ -123,6 +126,7 @@ export default function GuideViewer() {
           Dessin fini sans construction
         </button>
       </div>
+      )}
 
       <div className="card">
         <div className="row wrap">
