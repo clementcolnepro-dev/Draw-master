@@ -1,0 +1,17 @@
+/* Style « manuel artistique » des illustrations : papier crème, graphite, construction bleue, sanguine pour le nouveau trait. */
+svg.paper { background: #f3ede2; width: 100%; height: auto; display: block; border-radius: 10px; }
+svg.paper .ln { fill: none; stroke: #2e2a25; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+svg.paper .lt { fill: none; stroke: #2e2a25; stroke-width: 1.15; stroke-linecap: round; stroke-linejoin: round; }
+svg.paper .cn { fill: none; stroke: #6f87a6; stroke-width: 1.1; stroke-dasharray: 4 3; stroke-linecap: round; }
+svg.paper .gd { fill: none; stroke: #6f87a6; stroke-width: 1.1; stroke-linecap: round; }
+svg.paper .pt { fill: #6f87a6; }
+svg.paper .lb { fill: #5b5045; font-family: Georgia, 'Iowan Old Style', serif; font-style: italic; }
+svg.paper .note line { stroke: #8a3f1e; stroke-width: .8; }
+svg.paper .note circle { fill: #8a3f1e; }
+svg.paper .note text { fill: #8a3f1e; font-family: Georgia, serif; font-size: 9px; font-style: italic; }
+svg.paper .new .ln, svg.paper .new .lt { stroke: #b4532a; }
+svg.paper .new .cn, svg.paper .new .gd { stroke: #c8693a; }
+svg.paper .new .pt { fill: #b4532a; }
+svg.paper .new .lb { fill: #b4532a; }
+svg.paper .new { animation: drawIn .5s ease-out; }
+@keyframes drawIn { from { opacity: 0; } to { opacity: 1; } }
