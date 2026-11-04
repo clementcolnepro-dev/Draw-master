@@ -53,7 +53,7 @@ export default function Exercises() {
         </div>
       </Section>
 
-      <Section title="Exercices des leçons">
+      <Section title="Exercices des fiches théorie">
         {modules.map((m) => (
           <details key={m.id} className="card fold">
             <summary>

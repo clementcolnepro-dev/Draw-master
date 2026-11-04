@@ -3,7 +3,14 @@
 Application mobile (PWA) pour apprendre le dessin réaliste, du débutant à l’avancé : portrait, anatomie, vêtements et techniques du réalisme.
 Elle fonctionne hors connexion, s’installe sur l’écran d’accueil de l’iPhone et conserve toutes les données sur le téléphone.
 
-## Contenu (v1)
+## Dessins guidés (v2)
+
+L’onglet **Dessiner** propose 32 modèles à reproduire étape par étape, en images, sans déblocage : corps entier (femme, homme, proportions, mannequin, mouvement), tête, éléments du visage (œil, nez, bouche, oreille), parties du corps (torse, main, pied), vêtements (t-shirt, jean, robe, plis) et bases (volumes, ombres, matières).
+Chaque étape s’affiche en grand avec le nouveau trait en couleur ; on passe d’une étape à l’autre en balayant l’écran, avec les flèches ou les miniatures. Le bouton « Dessin fini sans construction » masque les traits de construction.
+
+Les guides sont définis dans `src/content/guides/` (un calque SVG par étape).
+
+## Fiches théorie (v1)
 
 | Module | Discipline | Leçons rédigées |
 |---|---|---|

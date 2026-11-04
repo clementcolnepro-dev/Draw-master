@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteDrawing, getDrawing, putDrawing, type DrawingRecord } from '../lib/db';
 import { lessonById } from '../content';
+import { guideById } from '../content/guides';
 import { BlobImg } from '../components/Thumb';
 import { DrawingFields, type DrawingMeta } from '../components/DrawingForm';
 import { PageHeader } from '../components/ui';
@@ -29,6 +30,7 @@ export default function DrawingDetail() {
     );
 
   const lesson = d.lessonId ? lessonById(d.lessonId) : undefined;
+  const guide = d.guideId ? guideById(d.guideId) : undefined;
 
   const save = async () => {
     if (!edit) return;
@@ -41,7 +43,7 @@ export default function DrawingDetail() {
     // Range ce dessin dans une série (son titre) s'il n'en a pas, pour pouvoir comparer les versions.
     const serie = d.series || d.title || 'Série ' + parseDay(d.date).toLocaleDateString('fr-FR');
     if (!d.series) await putDrawing({ ...d, series: serie });
-    nav(`/dessins/nouveau?serie=${encodeURIComponent(serie)}${d.lessonId ? `&lecon=${d.lessonId}` : ''}`);
+    nav(`/dessins/nouveau?serie=${encodeURIComponent(serie)}${d.lessonId ? `&lecon=${d.lessonId}` : ''}${d.guideId ? `&guide=${d.guideId}` : ''}`);
   };
   const remove = async () => {
     if (!confirm('Supprimer définitivement ce dessin ?')) return;
@@ -70,6 +72,11 @@ export default function DrawingDetail() {
         </>
       ) : (
         <div className="card">
+          {guide && (
+            <p className="small">
+              Modèle : <Link to={`/dessiner/${guide.id}`}>{guide.title}</Link>
+            </p>
+          )}
           {lesson && (
             <p className="small">
               Leçon : <Link to={`/lecon/${lesson.id}`}>{lesson.title}</Link>
@@ -78,7 +85,7 @@ export default function DrawingDetail() {
           {d.series && <p className="small">Série : ◫ {d.series}</p>}
           {d.comment ? <p className="comment">{d.comment}</p> : <p className="muted small">Pas de commentaire.</p>}
           <div className="row wrap">
-            <button className="btn ghost small" onClick={() => setEdit({ title: d.title, date: d.date, comment: d.comment, lessonId: d.lessonId, series: d.series })}>
+            <button className="btn ghost small" onClick={() => setEdit({ title: d.title, date: d.date, comment: d.comment, lessonId: d.lessonId, guideId: d.guideId, series: d.series })}>
               Modifier
             </button>
             {d.series && (

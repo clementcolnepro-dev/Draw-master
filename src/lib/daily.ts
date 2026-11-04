@@ -1,6 +1,5 @@
 import { warmups } from '../content/warmups';
-import { allLessons } from '../content';
-import { isUnlocked, nextLesson } from './progress';
+import { allGuides } from '../content/guides';
 import type { ProgressData } from './db';
 
 export const today = () => new Date().toLocaleDateString('sv-SE'); // AAAA-MM-JJ local
@@ -13,7 +12,7 @@ function hash(s: string) {
 
 export interface DailyItem {
   key: string;
-  kind: 'échauffement' | 'leçon' | 'croquis';
+  kind: 'échauffement' | 'dessin guidé' | 'croquis';
   title: string;
   minutes: number;
   text: string;
@@ -24,20 +23,20 @@ export interface DailyItem {
 export function dailyExercises(p: ProgressData, date = today()): DailyItem[] {
   const h = hash(date);
   const w = warmups[h % warmups.length];
-  const pool = allLessons.filter((l) => isUnlocked(l, p));
-  const done = pool.filter((l) => p.completed[l.id]);
-  // Révision d'une leçon terminée si possible, sinon la leçon en cours.
-  const lesson = done.length ? done[(h >> 3) % done.length] : nextLesson(p) || allLessons[0];
+  // Dessin du jour : de préférence un modèle pas encore dessiné.
+  const todo = allGuides.filter((g) => !p.guides[g.id]);
+  const pool = todo.length ? todo : allGuides;
+  const guide = pool[(h >> 3) % pool.length];
   const durations = ['30 s', '1 min', '2 min'];
   return [
     { key: `jour:${date}:w`, kind: 'échauffement', title: w.title, minutes: w.minutes, text: w.text },
     {
       key: `jour:${date}:l`,
-      kind: 'leçon',
-      title: lesson.exercise.title,
-      minutes: parseInt(lesson.exercise.duration) || 30,
-      text: `${done.length ? 'Révision' : 'Exercice'} de la leçon « ${lesson.title} ». ${lesson.exercise.instructions[0]}`,
-      link: `/lecon/${lesson.id}#exercice`
+      kind: 'dessin guidé',
+      title: guide.title,
+      minutes: 20,
+      text: `Reproduis ce modèle en ${guide.steps.length} étapes. Garde les premières étapes très légères.`,
+      link: `/dessiner/${guide.id}`
     },
     {
       key: `jour:${date}:c`,

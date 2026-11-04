@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { listDrawings } from '../lib/db';
-import { modules } from '../content';
+import { guideCategories } from '../content/guides';
 
 export interface DrawingMeta {
   title: string;
   date: string;
   comment: string;
   lessonId?: string;
+  guideId?: string;
   series?: string;
 }
 
@@ -30,14 +31,14 @@ export function DrawingFields({ value, onChange }: { value: DrawingMeta; onChang
         <input type="date" value={value.date} onChange={(e) => onChange({ ...value, date: e.target.value })} />
       </label>
       <label>
-        Leçon associée
-        <select value={value.lessonId || ''} onChange={(e) => set('lessonId', e.target.value)}>
-          <option value="">— Aucune —</option>
-          {modules.map((m) => (
-            <optgroup key={m.id} label={`${m.letter}. ${m.title}`}>
-              {m.lessons.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.title}
+        Modèle dessiné
+        <select value={value.guideId || ''} onChange={(e) => set('guideId', e.target.value)}>
+          <option value="">— Aucun (dessin libre) —</option>
+          {guideCategories.map((c) => (
+            <optgroup key={c.id} label={c.title}>
+              {c.guides.map((g) => (
+                <option key={g.id} value={g.id}>
+                  {g.title}
                 </option>
               ))}
             </optgroup>

@@ -3,6 +3,8 @@ import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-do
 import { ProgressProvider, useProgress } from './lib/progress';
 import { SvgDefs } from './components/Figure';
 import Home from './pages/Home';
+import GuideCatalog from './pages/GuideCatalog';
+import GuideViewer from './pages/GuideViewer';
 import Learn from './pages/Learn';
 import ModulePage from './pages/ModulePage';
 import LessonPage from './pages/LessonPage';
@@ -18,8 +20,8 @@ import NotFound from './pages/NotFound';
 
 const tabs = [
   { to: '/', label: 'Accueil', icon: 'M3 11 L12 4 L21 11 V20 H14 V14 H10 V20 H3 Z' },
-  { to: '/apprendre', label: 'Apprendre', icon: 'M4 5 H10 Q12 5 12 7 V20 Q12 18 10 18 H4 Z M20 5 H14 Q12 5 12 7 V20 Q12 18 14 18 H20 Z' },
-  { to: '/exercices', label: 'Exercices', icon: 'M16 3 L21 8 L9 20 L3 21 L4 15 Z M14 5 L19 10' },
+  { to: '/dessiner', label: 'Dessiner', icon: 'M16 3 L21 8 L9 20 L3 21 L4 15 Z M14 5 L19 10' },
+  { to: '/exercices', label: 'Exercices', icon: 'M12 8 V13 L15 15 M12 21 a8 8 0 1 0 0.01 0 M9 2 H15' },
   { to: '/dessins', label: 'Mes dessins', icon: 'M3 6 H21 V19 H3 Z M3 16 L9 11 L13 15 L16 12 L21 17 M15 9.5 a1.5 1.5 0 1 0 0.01 0' },
   { to: '/progression', label: 'Progression', icon: 'M4 20 V14 M10 20 V9 M16 20 V12 M22 20 V4 M2 20 H22' }
 ];
@@ -47,6 +49,8 @@ function Shell() {
         <ErrorBoundary>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/dessiner" element={<GuideCatalog />} />
+            <Route path="/dessiner/:guideId" element={<GuideViewer />} />
             <Route path="/apprendre" element={<Learn />} />
             <Route path="/apprendre/:moduleId" element={<ModulePage />} />
             <Route path="/lecon/:lessonId" element={<LessonPage />} />

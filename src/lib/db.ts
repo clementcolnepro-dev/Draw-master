@@ -12,6 +12,9 @@ export interface ProgressData {
   /** Temps par leçon (secondes). */
   lessonSeconds: Record<string, number>;
   lastLesson?: string;
+  /** id de dessin guidé → date ISO à laquelle il a été marqué « dessiné » */
+  guides: Record<string, string>;
+  lastGuide?: string;
   unlockAll: boolean;
 }
 
@@ -23,6 +26,8 @@ export interface DrawingRecord {
   title: string;
   comment: string;
   lessonId?: string;
+  /** Dessin guidé associé. */
+  guideId?: string;
   /** Nom de série pour comparer plusieurs versions d'un même dessin. */
   series?: string;
   image: Blob;
@@ -58,7 +63,8 @@ export const emptyProgress = (): ProgressData => ({
   exercises: [],
   seconds: 0,
   lessonSeconds: {},
-  unlockAll: false
+  guides: {},
+  unlockAll: true
 });
 
 export async function loadProgress(): Promise<ProgressData> {

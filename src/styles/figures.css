@@ -15,3 +15,12 @@ svg.paper .new .pt { fill: #b4532a; }
 svg.paper .new .lb { fill: #b4532a; }
 svg.paper .new { animation: drawIn .5s ease-out; }
 @keyframes drawIn { from { opacity: 0; } to { opacity: 1; } }
+svg.paper .cs { fill: none; stroke: #6f87a6; stroke-width: 1.1; stroke-linejoin: round; }
+svg.paper .sk { fill: none; stroke: #8b8174; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 9 2 14 3; }
+svg.paper .new .cs { stroke: #c8693a; }
+svg.paper .new .sk { stroke: #c8693a; }
+/* Vue « propre » : on masque les traits de construction et les étiquettes */
+svg.paper.clean .cn, svg.paper.clean .gd, svg.paper.clean .pt, svg.paper.clean .cs, svg.paper.clean .sk, svg.paper.clean .lb, svg.paper.clean .note { display: none; }
+svg.paper .constr .ln, svg.paper .constr .lt { stroke: #6f87a6; stroke-width: 1.2; }
+svg.paper .new .constr .ln, svg.paper .new .constr .lt, svg.paper .new.constr .ln, svg.paper .new.constr .lt { stroke: #c8693a; }
+svg.paper.clean .constr { display: none; }

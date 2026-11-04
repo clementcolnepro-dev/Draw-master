@@ -1,7 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { emptyProgress, loadProgress, saveProgress, uid, type ProgressData } from './db';
-import { allLessons, modules, lessonsOfDiscipline, disciplines } from '../content';
-import type { DisciplineId, Lesson } from '../content/types';
+import { allLessons, modules } from '../content';
+import { allGuides, guideCategories } from '../content/guides';
+import type { Lesson } from '../content/types';
 
 interface Ctx {
   p: ProgressData;
@@ -10,6 +11,8 @@ interface Ctx {
   logExercise: (key: string, label: string) => void;
   addSeconds: (s: number, lessonId?: string) => void;
   setLastLesson: (id: string) => void;
+  setGuideDone: (id: string, done: boolean) => void;
+  setLastGuide: (id: string) => void;
   setUnlockAll: (v: boolean) => void;
   replace: (p: ProgressData) => Promise<void>;
   reset: () => Promise<void>;
@@ -77,6 +80,14 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
           lessonSeconds: lessonId ? { ...prev.lessonSeconds, [lessonId]: (prev.lessonSeconds[lessonId] || 0) + s } : prev.lessonSeconds
         })),
       setLastLesson: (id) => update((prev) => (prev.lastLesson === id ? prev : { ...prev, lastLesson: id })),
+      setGuideDone: (id, done) =>
+        update((prev) => {
+          const guides = { ...prev.guides };
+          if (done) guides[id] = new Date().toISOString();
+          else delete guides[id];
+          return { ...prev, guides };
+        }, true),
+      setLastGuide: (id) => update((prev) => (prev.lastGuide === id ? prev : { ...prev, lastGuide: id })),
       setUnlockAll: (v) => update((prev) => ({ ...prev, unlockAll: v }), true),
       replace: async (np) => {
         const merged = { ...emptyProgress(), ...np };
@@ -104,11 +115,9 @@ export function useProgress() {
 }
 
 /** Une leçon est accessible si c'est la première de son module, si la précédente est terminée, ou si tout est débloqué. */
-export function isUnlocked(lesson: Lesson, p: ProgressData) {
-  if (p.unlockAll) return true;
-  const m = modules.find((x) => x.id === lesson.module)!;
-  const i = m.lessons.findIndex((l) => l.id === lesson.id);
-  return i <= 0 || !!p.completed[m.lessons[i - 1].id];
+// Tout est accessible librement : aucun déblocage.
+export function isUnlocked(_lesson: Lesson, _p: ProgressData) {
+  return true;
 }
 
 export const levels = [
@@ -119,21 +128,21 @@ export const levels = [
 ];
 
 export function stats(p: ProgressData) {
-  const total = allLessons.length;
-  const done = allLessons.filter((l) => p.completed[l.id]).length;
+  const total = allGuides.length;
+  const done = allGuides.filter((g) => p.guides[g.id]).length;
   const pct = total ? Math.round((done / total) * 100) : 0;
   const level = [...levels].reverse().find((l) => pct >= l.min)!;
   const nextLevel = levels.find((l) => l.min > pct);
-  const byDiscipline = disciplines.map((d) => {
-    const ls = lessonsOfDiscipline(d.id as DisciplineId);
-    const n = ls.filter((l) => p.completed[l.id]).length;
-    return { ...d, done: n, total: ls.length, pct: ls.length ? Math.round((n / ls.length) * 100) : 0 };
+  const byCategory = guideCategories.map((c) => {
+    const n = c.guides.filter((g) => p.guides[g.id]).length;
+    return { id: c.id, title: c.title, icon: c.icon, done: n, total: c.guides.length, pct: Math.round((n / c.guides.length) * 100) };
   });
   const byModule = modules.map((m) => {
     const n = m.lessons.filter((l) => p.completed[l.id]).length;
     return { id: m.id, done: n, total: m.lessons.length, pct: Math.round((n / m.lessons.length) * 100) };
   });
-  return { total, done, pct, level: level.name, nextLevel, byDiscipline, byModule, exercises: p.exercises.length, seconds: p.seconds };
+  const lessonsRead = allLessons.filter((l) => p.completed[l.id]).length;
+  return { total, done, pct, level: level.name, nextLevel, byCategory, byModule, lessonsRead, lessonsTotal: allLessons.length, exercises: p.exercises.length, seconds: p.seconds };
 }
 
 /** Prochaine leçon conseillée : dernière consultée si non terminée, sinon première leçon débloquée non terminée. */

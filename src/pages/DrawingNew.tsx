@@ -6,11 +6,13 @@ import { today } from '../lib/daily';
 import { DrawingFields, type DrawingMeta } from '../components/DrawingForm';
 import { PageHeader } from '../components/ui';
 import { lessonById } from '../content';
+import { guideById } from '../content/guides';
 import { useBlobUrl } from '../lib/useBlobUrl';
 
 export default function DrawingNew() {
   const [params] = useSearchParams();
   const lessonId = params.get('lecon') || undefined;
+  const guideId = params.get('guide') || undefined;
   const nav = useNavigate();
   const cam = useRef<HTMLInputElement>(null);
   const lib = useRef<HTMLInputElement>(null);
@@ -18,10 +20,11 @@ export default function DrawingNew() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string>();
   const [meta, setMeta] = useState<DrawingMeta>({
-    title: lessonId ? lessonById(lessonId)?.exercise.title || '' : '',
+    title: guideId ? guideById(guideId)?.title || '' : lessonId ? lessonById(lessonId)?.exercise.title || '' : '',
     date: today(),
     comment: '',
     lessonId,
+    guideId,
     series: params.get('serie') || undefined
   });
   const preview = useBlobUrl(file);
@@ -50,6 +53,7 @@ export default function DrawingNew() {
         title: meta.title.trim(),
         comment: meta.comment.trim(),
         lessonId: meta.lessonId,
+        guideId: meta.guideId,
         series: meta.series?.trim() || undefined,
         image: big.blob,
         thumb: small.blob,

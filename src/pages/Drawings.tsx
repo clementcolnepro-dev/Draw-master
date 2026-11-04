@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listDrawings, type DrawingRecord } from '../lib/db';
 import { lessonById } from '../content';
+import { guideById } from '../content/guides';
 import { BlobImg } from '../components/Thumb';
 import { PageHeader } from '../components/ui';
 
@@ -18,8 +19,8 @@ export default function Drawings() {
   }, []);
 
   const series = useMemo(() => [...new Set((items || []).map((d) => d.series).filter(Boolean) as string[])].sort(), [items]);
-  const shown = (items || []).filter((d) => !filter || d.series === filter || d.lessonId === filter);
-  const lessonIds = [...new Set((items || []).map((d) => d.lessonId).filter(Boolean) as string[])];
+  const shown = (items || []).filter((d) => !filter || d.series === filter || d.lessonId === filter || d.guideId === filter);
+  const lessonIds = [...new Set((items || []).flatMap((d) => [d.guideId, d.lessonId]).filter(Boolean) as string[])];
 
   return (
     <div className="page">
@@ -50,7 +51,7 @@ export default function Drawings() {
           ))}
           {lessonIds.map((id) => (
             <button key={id} className={filter === id ? 'chip on' : 'chip'} onClick={() => setFilter(id)}>
-              {lessonById(id)?.title || id}
+              {guideById(id)?.title || lessonById(id)?.title || id}
             </button>
           ))}
         </div>

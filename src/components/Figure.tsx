@@ -87,21 +87,33 @@ export function SvgDefs() {
 }
 
 /** Feuille de papier contenant une illustration. */
-export function Paper({ viewBox, children, label }: { viewBox: string; children: ReactNode; label?: string }) {
+export function Paper({ viewBox, children, label, clean }: { viewBox: string; children: ReactNode; label?: string; clean?: boolean }) {
   return (
-    <svg className="paper" viewBox={viewBox} role="img" aria-label={label} preserveAspectRatio="xMidYMid meet">
+    <svg className={clean ? 'paper clean' : 'paper'} viewBox={viewBox} role="img" aria-label={label} preserveAspectRatio="xMidYMid meet">
       {children}
     </svg>
   );
 }
 
 /** Affiche le dessin à l'étape donnée : calques précédents en graphite, calque courant en sanguine. */
-export function StepFigure({ drawing, step, showAll }: { drawing: Drawing; step: number; showAll?: boolean }) {
+export function StepFigure({
+  drawing,
+  step,
+  showAll,
+  clean,
+  highlight = true
+}: {
+  drawing: Pick<Drawing, 'viewBox' | 'layers' | 'annotations'>;
+  step: number;
+  showAll?: boolean;
+  clean?: boolean;
+  highlight?: boolean;
+}) {
   const last = showAll ? drawing.layers.length - 1 : step;
   return (
-    <Paper viewBox={drawing.viewBox} label={`Étape ${step + 1}`}>
+    <Paper viewBox={drawing.viewBox} label={`Étape ${step + 1}`} clean={clean}>
       {drawing.layers.slice(0, last + 1).map((layer, i) => (
-        <g key={i} className={!showAll && i === step ? 'new' : 'old'}>
+        <g key={i} className={highlight && !showAll && i === step ? 'new' : 'old'}>
           {layer}
         </g>
       ))}

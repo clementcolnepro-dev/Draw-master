@@ -14,11 +14,8 @@ export default function Learn() {
 
   return (
     <div className="page">
-      <PageHeader title="Le parcours" kicker="Apprendre">
-        <p className="muted">
-          Cinq modules, organisés en quatre disciplines. Les leçons se débloquent dans l’ordre à l’intérieur de chaque module : tu peux avancer en parallèle dans plusieurs modules,
-          mais commence de préférence par les fondamentaux.
-        </p>
+      <PageHeader title="Fiches théorie" kicker="Comprendre" back="/dessiner">
+        <p className="muted">Les explications détaillées derrière les dessins guidés : proportions, lumière, construction, plis. Toutes les fiches sont accessibles librement.</p>
       </PageHeader>
       {disciplines.map((d) => (
         <section key={d.id} id={d.id} className="section">
@@ -40,7 +37,7 @@ export default function Learn() {
                     <p className="muted small">{m.subtitle}</p>
                     <Bar pct={st.pct} small />
                     <span className="tiny">
-                      {st.done}/{st.total} leçons terminées · {m.planned.length} en préparation
+                      {st.done}/{st.total} fiches lues
                     </span>
                   </div>
                 </Link>

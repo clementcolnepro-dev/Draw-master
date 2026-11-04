@@ -203,7 +203,7 @@ a.card:active { transform: scale(.99); }
 
 /* Mes dessins */
 .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: .6rem 0; }
-.chip { border: 1px solid var(--line); background: var(--bg2); border-radius: 999px; padding: 7px 12px; font-size: .82rem; color: var(--muted); cursor: pointer; }
+.chip { text-decoration: none; border: 1px solid var(--line); background: var(--bg2); border-radius: 999px; padding: 7px 12px; font-size: .82rem; color: var(--muted); cursor: pointer; }
 .chip.on { border-color: var(--gold); color: var(--gold2); background: #3a3225; }
 .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .g-item { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit; }
@@ -292,4 +292,35 @@ textarea { resize: vertical; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+/* Dessins guidés */
+.guide-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.guide-card { display: flex; flex-direction: column; gap: 3px; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 8px 8px 10px; }
+.guide-card b { font-size: .9rem; line-height: 1.25; margin-top: 4px; }
+.guide-thumb { position: relative; }
+.guide-thumb svg.paper { aspect-ratio: 1; border-radius: 8px; }
+.done-badge { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: #1c1b19; display: grid; place-items: center; font-weight: 700; font-size: .8rem; }
+.resume-guide { display: flex; gap: 12px; align-items: center; }
+.resume-thumb { flex: none; width: 96px; }
+.resume-thumb svg.paper { aspect-ratio: 1; }
+.resume-guide h3 { margin: 0; }
+.resume-guide .btn { align-self: flex-start; margin-top: 6px; }
+.guide .page-head { margin-bottom: .6rem; }
+.guide .page-head h1 { font-size: 1.45rem; }
+.viewer-fig { position: relative; touch-action: pan-y; }
+.viewer-fig svg.paper { max-height: 54vh; }
+.thumbs { position: relative; }
+.step-badge { position: absolute; top: 8px; left: 8px; background: rgba(28, 27, 25, .82); color: var(--gold2); font-weight: 600; font-size: .8rem; padding: 3px 10px; border-radius: 999px; }
+.step-caption { margin: .7rem 0 .6rem; min-height: 3rem; font-family: var(--serif); font-size: 1.05rem; line-height: 1.35; }
+.step-caption .tiny { font-family: var(--sans); }
+.guide .step-nav .btn:first-child { flex: 0 0 64px; }
+.thumbs { display: flex; gap: 8px; overflow-x: auto; padding: 12px 2px 6px; scroll-snap-type: x proximity; scrollbar-width: none; }
+.thumbs::-webkit-scrollbar { display: none; }
+.thumb { flex: none; width: 76px; padding: 0; border: 2px solid transparent; border-radius: 10px; background: none; cursor: pointer; position: relative; scroll-snap-align: center; }
+.thumb svg.paper { aspect-ratio: 1; border-radius: 8px; }
+.thumb span { position: absolute; bottom: 3px; right: 3px; background: rgba(28, 27, 25, .8); color: var(--text); font-size: .68rem; border-radius: 6px; padding: 0 5px; }
+.thumb.on { border-color: var(--gold); }
+@media (min-width: 700px) {
+  .guide-grid { grid-template-columns: repeat(3, 1fr); }
 }

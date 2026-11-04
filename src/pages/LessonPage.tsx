@@ -64,7 +64,7 @@ export default function LessonPage() {
           <span className="pill">{lesson.difficulty}</span>
           <span className="tiny">≈ {lesson.minutes} min de lecture</span>
           {p.lessonSeconds[lesson.id] ? <span className="tiny">· {formatDuration(p.lessonSeconds[lesson.id])} passées ici</span> : null}
-          {done && <span className="pill ok">✓ Terminée</span>}
+          {done && <span className="pill ok">✓ Lue</span>}
         </div>
       </PageHeader>
 
@@ -206,18 +206,18 @@ export default function LessonPage() {
             ))}
           </ul>
           <p className="tiny muted">
-            Marquer la leçon comme terminée enregistre ta progression personnelle dans le parcours. Ce n’est pas une certification : seule la pratique répétée fait acquérir la compétence.
+            Marquer la fiche comme lue sert seulement à ton suivi personnel.
           </p>
           {done ? (
             <div className="row wrap">
-              <span className="pill ok">✓ Terminée le {new Date(p.completed[lesson.id]).toLocaleDateString('fr-FR')}</span>
+              <span className="pill ok">✓ Lue le {new Date(p.completed[lesson.id]).toLocaleDateString('fr-FR')}</span>
               <button className="btn ghost small" onClick={() => setCompleted(lesson.id, false)}>
                 Annuler
               </button>
             </div>
           ) : (
             <button className="btn" onClick={() => setCompleted(lesson.id, true)}>
-              Marquer comme terminée
+              Marquer comme lue
             </button>
           )}
         </div>

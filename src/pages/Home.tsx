@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useProgress, stats, nextLesson } from '../lib/progress';
+import { useProgress, stats } from '../lib/progress';
 import { dailyExercises, isDone } from '../lib/daily';
-import { disciplines, moduleById } from '../content';
+import { allGuides, guideById, categoryOfGuide } from '../content/guides';
+import { StepFigure } from '../components/Figure';
 import { Bar, Ring, Section } from '../components/ui';
 
 function greeting() {
@@ -14,7 +15,7 @@ function greeting() {
 export default function Home() {
   const { p, logExercise } = useProgress();
   const s = stats(p);
-  const next = nextLesson(p);
+  const next = (p.lastGuide && guideById(p.lastGuide)) || allGuides.find((g) => !p.guides[g.id]);
   const daily = dailyExercises(p);
 
   return (
@@ -25,7 +26,7 @@ export default function Home() {
           <h1>{greeting()} !</h1>
           <p className="muted">
             {s.done === 0
-              ? 'Bienvenue dans ton atelier. Commence par les fondamentaux : tout le reste repose dessus.'
+              ? 'Bienvenue dans ton atelier. Choisis un modèle et dessine-le étape par étape.'
               : 'Content de te revoir à l’atelier. Un peu de pratique chaque jour vaut mieux qu’une longue séance par semaine.'}
           </p>
         </div>
@@ -35,7 +36,7 @@ export default function Home() {
       <div className="stat-row">
         <div className="stat">
           <b>{s.done}</b>
-          <span>leçon{s.done > 1 ? 's' : ''} terminée{s.done > 1 ? 's' : ''} / {s.total}</span>
+          <span>modèle{s.done > 1 ? 's' : ''} dessiné{s.done > 1 ? 's' : ''} / {s.total}</span>
         </div>
         <div className="stat">
           <b>{s.level}</b>
@@ -48,38 +49,33 @@ export default function Home() {
       </div>
 
       {next && (
-        <Link to={`/lecon/${next.id}`} className="card resume">
-          <div className="kicker">{p.lastLesson === next.id ? 'Reprendre' : 'Leçon suivante'} · Module {moduleById(next.module)?.letter}</div>
-          <h3>{next.title}</h3>
-          <p className="muted small">{next.objective}</p>
-          <span className="btn">Continuer →</span>
+        <Link to={`/dessiner/${next.id}`} className="card resume resume-guide">
+          <div className="resume-thumb">
+            <StepFigure drawing={next} step={next.layers.length - 1} showAll clean highlight={false} />
+          </div>
+          <div className="grow">
+            <div className="kicker">{p.lastGuide === next.id ? 'Reprendre' : 'À dessiner'} · {categoryOfGuide(next.id)?.title}</div>
+            <h3>{next.title}</h3>
+            <span className="tiny">{next.steps.length} étapes</span>
+            <span className="btn small">Ouvrir →</span>
+          </div>
         </Link>
       )}
-      {!next && (
-        <div className="card resume">
-          <h3>Toutes les leçons disponibles sont terminées 🎉</h3>
-          <p className="muted small">Continue de pratiquer avec les exercices du jour et les outils. De nouvelles leçons pourront être ajoutées au programme.</p>
-        </div>
-      )}
 
-      <Section title="Les quatre disciplines">
+      <Section title="Dessiner pas à pas">
         <div className="grid2">
-          {disciplines.map((d) => {
-            const st = s.byDiscipline.find((x) => x.id === d.id)!;
-            return (
-              <Link key={d.id} to={`/apprendre#${d.id}`} className="card disc">
-                <span className="disc-icon" aria-hidden="true">
-                  {d.icon}
-                </span>
-                <h3>{d.title}</h3>
-                <p className="muted small">{d.subtitle}</p>
-                <Bar pct={st.pct} small />
-                <span className="tiny">
-                  {st.done}/{st.total} leçons
-                </span>
-              </Link>
-            );
-          })}
+          {s.byCategory.map((c) => (
+            <Link key={c.id} to={`/dessiner#${c.id}`} className="card disc">
+              <span className="disc-icon" aria-hidden="true">
+                {c.icon}
+              </span>
+              <h3>{c.title}</h3>
+              <Bar pct={c.pct} small />
+              <span className="tiny">
+                {c.done}/{c.total} modèles
+              </span>
+            </Link>
+          ))}
         </div>
       </Section>
 
@@ -111,12 +107,16 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section title="Outils de l’atelier">
+      <Section title="Atelier">
+        <Link to="/apprendre" className="card tools-link">
+          <span>Fiches théorie : proportions, lumière, plis… expliqués en détail</span>
+          <span className="btn ghost small">Lire →</span>
+        </Link>
         <Link to="/outils" className="card tools-link">
           <span>Grilles de proportions, valeurs de gris, guide des ombres, symétrie, visualiseur de références, minuteur de croquis, glossaire</span>
           <span className="btn ghost small">Ouvrir →</span>
         </Link>
-      </Section>
+    </Section>
     </div>
   );
 }

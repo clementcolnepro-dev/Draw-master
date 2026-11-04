@@ -17,11 +17,11 @@ export default function ModulePage() {
         <p className="muted">{m.description}</p>
         <Bar pct={st.pct} />
         <span className="tiny">
-          {st.done}/{st.total} leçons terminées
+          {st.done}/{st.total} fiches lues
         </span>
       </PageHeader>
 
-      <Section title="Leçons">
+      <Section title="Fiches">
         <ol className="lesson-list">
           {m.lessons.map((l, i) => {
             const done = !!p.completed[l.id];
@@ -32,7 +32,7 @@ export default function ModulePage() {
                 <span className="grow">
                   <b>{l.title}</b>
                   <span className="tiny">
-                    {l.difficulty} · {l.minutes} min · {l.steps.length} étapes illustrées
+                    {l.difficulty} · {l.minutes} min de lecture
                   </span>
                 </span>
                 <span aria-hidden="true">{open ? '›' : '🔒'}</span>
@@ -53,14 +53,11 @@ export default function ModulePage() {
             );
           })}
         </ol>
-        {m.lessons.some((l) => !isUnlocked(l, p)) && (
-          <p className="tiny muted">🔒 Termine la leçon précédente pour débloquer la suivante (ou active « tout débloquer » dans Progression).</p>
-        )}
       </Section>
 
       {m.planned.length > 0 && (
-        <Section title="Au programme (en préparation)">
-          <p className="muted small">Ces leçons font partie du programme complet du module. Elles ne sont pas encore rédigées : elles ne sont donc pas cliquables.</p>
+        <Section title="Fiches à venir">
+          <p className="muted small">Pas encore rédigées.</p>
           <ul className="planned">
             {m.planned.map((t) => (
               <li key={t}>{t}</li>
