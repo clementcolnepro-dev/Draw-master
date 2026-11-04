@@ -46,8 +46,8 @@ Pile : React 18, TypeScript, Vite, vite-plugin-pwa (Workbox), IndexedDB (`idb`).
 
 ### Déploiement GitHub Pages
 
-Le workflow `.github/workflows/deploy.yml` construit et publie automatiquement à chaque push sur `main`.
-À faire une seule fois : **Settings → Pages → Build and deployment → Source : GitHub Actions**.
+Le workflow `.github/workflows/deploy.yml` construit l’app à chaque push sur `main` et publie `dist/` sur la branche `gh-pages`.
+À faire une seule fois : **Settings → Pages → Source : Deploy from a branch → `gh-pages` / (root)**.
 
 ### Structure
 
