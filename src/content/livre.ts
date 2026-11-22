@@ -224,6 +224,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Le pied sous tous les angles',
+        pages: [
+          p('Profil intérieur', 'Côté intérieur, la voûte plantaire se soulève : le pied ne touche le sol qu’au talon et à l’avant. La malléole intérieure est haute et bien marquée.', g('pied-vues', 0)),
+          p('Profil extérieur', 'Côté extérieur, le pied repose presque à plat sur toute sa longueur. La malléole extérieure est plus basse et plus en arrière que l’intérieure.', g('pied-vues', 1)),
+          p('De face', 'De face, le pied se raccourcit fortement en perspective : les orteils passent devant le cou-de-pied. Les orteils forment une ligne qui descend du gros orteil au petit.', g('pied-vues', 2)),
+          p('De dos', 'De dos, le talon est un bloc arrondi et le tendon d’Achille le relie au mollet. Les deux malléoles dépassent de chaque côté, à des hauteurs différentes.', g('pied-vues', 3)),
+          p('Trois quarts', 'De trois quarts, on voit à la fois le dessus du pied et un côté. Garde le bloc en coin en tête : le cou-de-pied monte vers la cheville en pente douce.', g('pied-vues', 4)),
+          p('Sur la pointe', 'Sur la pointe, tout le poids passe sur la base des orteils, qui se plient à angle droit. Le talon monte et le cou-de-pied s’aligne avec la jambe.', g('pied-vues', 5))
+        ]
+      },
+      {
         title: 'Le torse',
         pages: [
           p('L’œuf de la cage', 'La cage thoracique ressemble à un œuf légèrement aplati, incliné selon la pose. Dessine-la comme un bloc simple avant de suggérer les côtes et les muscles.', g('c3-cage-bassin', 0)),

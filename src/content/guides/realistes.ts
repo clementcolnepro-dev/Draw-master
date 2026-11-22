@@ -104,3 +104,20 @@ export const mainRealiste: Guide = {
     { title: 'Rendu final : tendons, veines, demi-teintes' }
   ]
 };
+
+export const piedVues: Guide = {
+  id: 'pied-vues',
+  title: 'Pied : 6 vues pour comprendre la forme',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('pied-vues', 6),
+  steps: [
+    { title: 'Profil intérieur : la voûte plantaire', tip: 'Le pied ne touche le sol qu’au talon et à l’avant' },
+    { title: 'Profil extérieur : le bord posé à plat' },
+    { title: 'De face, en perspective' },
+    { title: 'De dos : talon et tendon d’Achille' },
+    { title: 'Trois quarts, posé au sol' },
+    { title: 'Sur la pointe, talon levé' }
+  ]
+};
