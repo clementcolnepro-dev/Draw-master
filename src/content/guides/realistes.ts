@@ -172,3 +172,20 @@ export const bassinHomme: Guide = {
     { title: 'Rendu final, construction effacée' }
   ]
 };
+
+export const fessiersFemme: Guide = {
+  id: 'fessiers-femme',
+  title: 'Fessiers — femme (de dos)',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('fessiers-femme', 6),
+  steps: [
+    { title: 'Ligne d’action, taille, crêtes iliaques, plis fessiers inclinés' },
+    { title: 'Blocs : cage en œuf, bassin en boîte, sacrum en losange' },
+    { title: 'Volumes : grands fessiers en ovales, cuisses en cylindres', tip: 'Côté appui, le fessier est plus haut et plus contracté' },
+    { title: 'Contour fluide en courbes en S' },
+    { title: 'Ombres en suivant les volumes' },
+    { title: 'Rendu final, construction effacée' }
+  ]
+};

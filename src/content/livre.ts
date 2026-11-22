@@ -116,6 +116,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Fessiers — femme',
+        pages: [
+          p('Les repères', 'Pars de la ligne d’action de la colonne, puis place la taille, les crêtes iliaques et les plis fessiers. En appui sur une jambe, ces lignes s’inclinent : la hanche monte du côté de l’appui.', g('fessiers-femme', 0)),
+          p('Les blocs', 'Pose la cage thoracique en œuf et le bassin en boîte inclinée. Au centre du bassin, le sacrum forme un losange, avec les deux fossettes des reins à ses coins supérieurs.', g('fessiers-femme', 1)),
+          p('Les volumes', 'Chaque grand fessier se construit en ovale incliné, accroché sous la crête iliaque. Du côté de l’appui, il est plus haut et plus tendu ; de l’autre, il descend et se relâche.', g('fessiers-femme', 2)),
+          p('Le contour', 'Relie taille, hanches, fessiers et cuisses par des courbes en S, sans angle. Les plis fessiers ne sont pas symétriques : celui de la jambe d’appui est plus marqué.', g('fessiers-femme', 3)),
+          p('Les ombres', 'Ombre le creux des reins, le sillon central, le dessous des plis fessiers et le côté des hanches opposé à la lumière. Suis la rondeur des volumes avec ton hachurage.', g('fessiers-femme', 4)),
+          p('Le rendu final', 'Adoucis les demi-teintes pour rendre la peau, garde un reflet doux sur le haut de chaque fessier et efface la construction.', g('fessiers-femme', 5))
+        ]
+      },
+      {
         title: 'Bassin et hanches — homme',
         pages: [
           p('Les repères', 'Trace l’axe central, la taille, la ligne des crêtes iliaques et celle des plis de l’aine. Chez l’homme, la taille est peu marquée : le torse descend presque droit vers les hanches.', g('bassin-homme', 0)),
