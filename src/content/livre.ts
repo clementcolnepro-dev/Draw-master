@@ -157,11 +157,12 @@ export const books: Book[] = [
       {
         title: 'La bouche',
         pages: [
-          p('Les limites', 'La bouche s’étend à peu près entre les verticales qui tombent du centre des pupilles. Pose ces limites, puis la hauteur des deux lèvres.', g('b6-bouche', 0)),
-          p('La ligne de la bouche', 'Commence par la ligne de contact entre les lèvres : c’est le trait le plus sombre de la bouche. Elle ondule légèrement et se creuse au centre.', g('b6-bouche', 1)),
-          p('La lèvre supérieure', 'La lèvre du haut forme l’arc de Cupidon au centre et descend vers les coins. Tournée vers le bas, elle est souvent plus sombre que celle du dessous.', g('b6-bouche', 2)),
-          p('La lèvre inférieure', 'La lèvre du bas est plus pleine et reçoit la lumière. Ne la cerne pas : son bord inférieur se lit grâce à l’ombre portée sur le menton.', g('b6-bouche', 3)),
-          p('Coins et ombres', 'Les commissures sont de petites zones sombres, pas des points. Ombre la lèvre du haut et le creux sous la lèvre du bas, et garde un reflet sur celle-ci.', g('b6-bouche', 5))
+          p('La construction', 'Trace l’axe central, la ligne de la bouche et ses limites, à peu près sous le centre des pupilles. Encadre la hauteur des deux lèvres : la lèvre du bas est souvent la plus épaisse.', g('bouche-realiste', 0)),
+          p('La ligne de contact', 'Dessine la ligne entre les lèvres en premier : c’est le trait le plus sombre de la bouche. Elle ondule légèrement et se creuse au centre, sous l’arc de Cupidon.', g('bouche-realiste', 1)),
+          p('Les contours', 'La lèvre du haut forme l’arc de Cupidon et descend vers les coins. Celle du bas est plus pleine ; ne la cerne pas d’un trait épais, son bord se lira avec l’ombre.', g('bouche-realiste', 2)),
+          p('Les premières ombres', 'Tournée vers le bas, la lèvre supérieure est plus sombre que l’inférieure. Fonce les commissures et pose l’ombre portée sous la lèvre du bas, sur le menton.', g('bouche-realiste', 3)),
+          p('Demi-teintes et texture', 'Modèle le volume des lèvres avec des demi-teintes et de fines stries verticales. Marque le philtrum, le sillon entre le nez et la lèvre, par deux arêtes claires.', g('bouche-realiste', 4)),
+          p('Le rendu final', 'Fonce les valeurs, efface la construction et garde des reflets nets sur la lèvre inférieure. Plus les reflets sont petits et contrastés, plus la lèvre paraît brillante.', g('bouche-realiste', 5))
         ]
       },
       {

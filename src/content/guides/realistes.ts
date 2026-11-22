@@ -36,3 +36,20 @@ export const nezRealiste: Guide = {
     { title: 'Rendu final et reflets, construction effacée' }
   ]
 };
+
+export const boucheRealiste: Guide = {
+  id: 'bouche-realiste',
+  title: 'Bouche réaliste au graphite',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('bouche', 6),
+  steps: [
+    { title: 'Construction : axe, limites et hauteur des lèvres' },
+    { title: 'La ligne de contact entre les lèvres', tip: 'C’est le trait le plus sombre de la bouche' },
+    { title: 'Contours : arc de Cupidon et lèvre inférieure' },
+    { title: 'Premières ombres : lèvre supérieure, coins, menton' },
+    { title: 'Demi-teintes, philtrum et texture des lèvres' },
+    { title: 'Rendu final et reflets, construction effacée' }
+  ]
+};
