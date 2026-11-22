@@ -342,3 +342,16 @@ textarea { resize: vertical; }
 .btn.danger.wide { margin-top: .6rem; }
 .guide-img { display: block; width: 100%; max-height: 54vh; object-fit: contain; background: #fff; border-radius: 10px; }
 .guide-img.thumb-img { aspect-ratio: 1; object-fit: cover; object-position: top; max-height: none; border-radius: 8px; }
+
+/* Minuteur avec photos de modèles */
+.timer.pose { padding: .4rem 0 0; }
+.pose-head { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; color: var(--muted); margin-bottom: 6px; }
+.pose-clock { font: 600 2rem/1 var(--serif); color: var(--gold2); font-variant-numeric: tabular-nums; }
+.timer.rest .pose-clock { color: var(--muted); }
+.pose-photo { position: relative; background: #111; border-radius: 12px; overflow: hidden; height: calc(100dvh - 330px); min-height: 280px; display: flex; align-items: center; justify-content: center; }
+.pose-photo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.pose-photo.resting img { opacity: .35; filter: blur(2px); }
+.pose-next { position: absolute; inset: auto 0 16px; text-align: center; color: var(--text); font-size: .95rem; }
+.pose-credit { display: block; font-size: .7rem; color: var(--muted); margin-top: 6px; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.timer.pose .row { margin-top: .6rem; }
+.error-notice { background: #3a2626; border-color: #6a3a34; }

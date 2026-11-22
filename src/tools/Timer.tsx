@@ -1,5 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useProgress } from '../lib/progress';
+import { fetchPoses, getUnsplashKey, pingUnsplash, setUnsplashKey, type PosePhoto, type PoseSource } from '../lib/poses';
+
+const SRC_STORE = 'dm-timer-source';
+const sources: { id: PoseSource; label: string }[] = [
+  { id: 'aucune', label: 'Mes photos' },
+  { id: 'muybridge', label: 'Mouvement (Muybridge)' },
+  { id: 'unsplash', label: 'Poses modernes' },
+  { id: 'melange', label: 'Mélange' }
+];
+const loadSource = (): PoseSource => {
+  try {
+    const v = localStorage.getItem(SRC_STORE) as PoseSource | null;
+    return v && sources.some((x) => x.id === v) ? v : 'muybridge';
+  } catch {
+    return 'muybridge';
+  }
+};
 
 const presets = [30, 60, 120, 300, 600];
 const label = (s: number) => (s < 60 ? `${s} s` : `${s / 60} min`);
@@ -30,6 +47,33 @@ export default function Timer() {
   const audio = useRef<AudioContext | null>(null);
   const wake = useRef<WakeLockSentinelLike | null>(null);
   const end = useRef(0);
+  const [source, setSource] = useState<PoseSource>(loadSource);
+  const [photos, setPhotos] = useState<PosePhoto[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [keyInput, setKeyInput] = useState('');
+  const [hasKey, setHasKey] = useState(!!getUnsplashKey());
+  const [mirror, setMirror] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SRC_STORE, source);
+    } catch {
+      /* stockage indisponible */
+    }
+  }, [source]);
+
+  const photo = photos.length ? photos[(round - 1) % photos.length] : undefined;
+  const nextPhoto = photos.length ? photos[round % photos.length] : undefined;
+  useEffect(() => {
+    if (photo && state === 'run') pingUnsplash(photo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [photo?.url, state === 'run']);
+
+  // Précharge la photo suivante pendant le croquis en cours.
+  useEffect(() => {
+    if (nextPhoto) new Image().src = nextPhoto.url;
+  }, [nextPhoto?.url]);
 
   const lock = async () => {
     try {
@@ -43,13 +87,36 @@ export default function Timer() {
     wake.current = null;
   };
 
-  const start = () => {
+  const start = async () => {
+    setError('');
+    // Le son doit être activé pendant le toucher, avant tout chargement (exigence iOS).
     try {
       audio.current = audio.current || new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       audio.current.resume();
     } catch {
       audio.current = null;
     }
+    let list: PosePhoto[] = [];
+    if (source !== 'aucune') {
+      setLoading(true);
+      try {
+        list = await fetchPoses(source, rounds);
+        if (!list.length) throw new Error('Aucune photo trouvée. Vérifie ta connexion et réessaie.');
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Impossible de charger les photos.');
+        return;
+      } finally {
+        setLoading(false);
+      }
+      // Attend la première photo pour ne pas lancer le chrono sur un écran vide.
+      await new Promise<void>((res) => {
+        const img = new Image();
+        img.onload = img.onerror = () => res();
+        img.src = list[0].url;
+        setTimeout(res, 6000);
+      });
+    }
+    setPhotos(list);
     setRound(1);
     setLeft(dur);
     end.current = Date.now() + dur * 1000;
@@ -118,11 +185,56 @@ export default function Timer() {
   if (state === 'idle' || state === 'done')
     return (
       <>
+        {error && <div className="card notice error-notice">{error}</div>}
         {state === 'done' && <div className="card notice">Séance terminée : {rounds} croquis de {label(dur)}. Elle a été ajoutée à tes exercices.</div>}
-        <p className="small muted">
-          Ouvre des photos de poses (sport, danse, modèles vivants) dans une autre application ou sur un autre écran. Pour chaque pose : ligne d’action d’abord, puis grandes masses. Pas de
-          détails !
-        </p>
+        <div className="form">
+          <span className="label">Modèles</span>
+          <div className="chips">
+            {sources.map((x) => (
+              <button key={x.id} className={source === x.id ? 'chip on' : 'chip'} onClick={() => setSource(x.id)}>
+                {x.label}
+              </button>
+            ))}
+          </div>
+          <p className="tiny muted">
+            {source === 'aucune' && 'Ouvre tes propres photos de poses dans une autre application ou sur un autre écran.'}
+            {source === 'muybridge' && 'Photos d’Eadweard Muybridge (1887) : hommes et femmes en mouvement, souvent nus. Domaine public, idéal pour l’anatomie et le geste.'}
+            {source === 'unsplash' && 'Photos modernes de poses (danse, sport, mode), habillées, en couleur.'}
+            {source === 'melange' && (hasKey ? 'Moitié Muybridge, moitié photos modernes, dans un ordre aléatoire.' : 'Sans clé Unsplash, seules les photos de Muybridge sont utilisées.')}
+          </p>
+          {(source === 'unsplash' || source === 'melange') &&
+            (hasKey ? (
+              <button
+                className="btn ghost small"
+                onClick={() => {
+                  setUnsplashKey('');
+                  setHasKey(false);
+                }}
+              >
+                Changer la clé Unsplash
+              </button>
+            ) : (
+              <label>
+                Clé d’accès Unsplash (Access Key)
+                <div className="row">
+                  <input value={keyInput} onChange={(e) => setKeyInput(e.target.value)} placeholder="Colle ta clé ici" autoCapitalize="off" autoCorrect="off" spellCheck={false} style={{ flex: 1 }} />
+                  <button
+                    className="btn small"
+                    disabled={keyInput.trim().length < 20}
+                    onClick={() => {
+                      setUnsplashKey(keyInput);
+                      setHasKey(true);
+                      setKeyInput('');
+                    }}
+                  >
+                    OK
+                  </button>
+                </div>
+                <span className="tiny">Gratuite sur unsplash.com/developers. Elle reste sur ce téléphone.</span>
+              </label>
+            ))}
+        </div>
+        <p className="small muted">Pour chaque pose : ligne d’action d’abord, puis grandes masses. Pas de détails !</p>
         <div className="form">
           <span className="label">Durée par croquis</span>
           <div className="chips">
@@ -142,11 +254,49 @@ export default function Timer() {
           </label>
         </div>
         <p className="tiny muted">Durée totale ≈ {Math.round((rounds * dur + (rounds - 1) * pause) / 60)} min</p>
-        <button className="btn wide" onClick={start}>
-          ▶ Démarrer
+        <button className="btn wide" onClick={start} disabled={loading}>
+          {loading ? 'Chargement des photos…' : '▶ Démarrer'}
         </button>
       </>
     );
+
+  if (photos.length) {
+    const shown = state === 'rest' ? nextPhoto : photo;
+    return (
+      <div className={`timer pose ${state}`}>
+        <div className="pose-head">
+          <span>
+            Croquis {round} / {rounds}
+          </span>
+          <span className="pose-clock" aria-live="polite">
+            {mm}:{ss}
+          </span>
+          <span>{state === 'rest' ? 'Pause' : state === 'paused' ? 'En pause' : 'Dessine !'}</span>
+        </div>
+        <div className={state === 'rest' ? 'pose-photo resting' : 'pose-photo'} onClick={() => setMirror((m) => !m)}>
+          {shown && <img src={shown.url} alt="Modèle à dessiner" style={mirror ? { transform: 'scaleX(-1)' } : undefined} />}
+          {state === 'rest' && <div className="pose-next">Pose suivante dans {left} s</div>}
+        </div>
+        {shown && (
+          <a className="pose-credit" href={shown.link} target="_blank" rel="noreferrer">
+            {shown.credit}
+          </a>
+        )}
+        <div className="row center">
+          <button className="btn ghost small" onClick={togglePause}>
+            {state === 'paused' ? '▶ Reprendre' : '❚❚ Pause'}
+          </button>
+          <button className="btn ghost small" onClick={skip}>
+            ⏭ Suivant
+          </button>
+          <button className="btn danger small" onClick={stop}>
+            ■ Arrêter
+          </button>
+        </div>
+        <p className="tiny muted">Touche la photo pour la retourner en miroir.</p>
+      </div>
+    );
+  }
 
   return (
     <div className={`timer ${state}`}>
