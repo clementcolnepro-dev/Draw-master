@@ -105,6 +105,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Bassin et hanches — femme',
+        pages: [
+          p('Les repères', 'Trace l’axe central puis trois lignes : la taille, les crêtes iliaques (le haut des os du bassin) et la ligne des hanches, la partie la plus large. Chez la femme, cette dernière dépasse souvent la largeur des épaules.', g('bassin-femme', 0)),
+          p('Le squelette', 'Le bassin féminin est large, évasé et plutôt bas. Les têtes des fémurs sont bien écartées : c’est ce qui donne la largeur des hanches.', g('bassin-femme', 1)),
+          p('Les volumes', 'Simplifie le bassin en bol large, puis les cuisses en deux cylindres. Ils partent des hanches et convergent vers les genoux, en oblique.', g('bassin-femme', 2)),
+          p('Le contour', 'Le contour passe de la taille marquée à la courbe des hanches, puis au haut des cuisses. Le bas-ventre forme un V doux, encadré par les plis de l’aine.', g('bassin-femme', 3)),
+          p('Les ombres', 'Ombre les flancs, sous le ventre et l’intérieur des cuisses. Le ventre et le haut des cuisses, tournés vers la lumière, restent clairs.', g('bassin-femme', 4)),
+          p('Le rendu final', 'Adoucis toutes les transitions : chez la femme, les formes sont plus arrondies et les muscles moins marqués. Efface la construction.', g('bassin-femme', 5))
+        ]
+      },
+      {
         title: 'Les hanches et le bassin',
         pages: [
           p('Le bassin en boîte', 'Simplifie le bassin en boîte ou en bol incliné. Son orientation donne celle des hanches et montre sur quelle jambe repose le poids.', g('c2-mannequin', 3)),

@@ -138,3 +138,20 @@ export const piedRealiste: Guide = {
     { title: 'Rendu final, construction effacée' }
   ]
 };
+
+export const bassinFemme: Guide = {
+  id: 'bassin-femme',
+  title: 'Bassin et hanches — femme',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('bassin-femme', 6),
+  steps: [
+    { title: 'Repères : axe, taille, crêtes iliaques, hanches' },
+    { title: 'Squelette du bassin : large et évasé', tip: 'Les têtes des fémurs sont plus écartées que chez l’homme' },
+    { title: 'Volumes : bol du bassin, cuisses en cylindres obliques' },
+    { title: 'Contour définitif : taille, hanches, haut des cuisses' },
+    { title: 'Premières ombres et demi-teintes' },
+    { title: 'Rendu final, construction effacée' }
+  ]
+};
