@@ -168,10 +168,12 @@ export const books: Book[] = [
       {
         title: 'L’oreille',
         pages: [
-          p('Le placement', 'L’oreille se place entre la ligne des sourcils et la base du nez, en ovale incliné vers l’arrière. De face, on ne la voit que de profil, très étroite.', g('oreille', 0)),
-          p('Hélix et anthélix', 'Dessine le rebord extérieur (l’hélix) et le lobe, puis la crête intérieure en forme de Y : l’anthélix. Ces deux courbes suffisent à rendre l’oreille lisible.', g('oreille', 2)),
-          p('Conque et tragus', 'Au centre, la conque est le creux qui mène au conduit. Devant elle, le tragus forme un petit rabat ; en face, sous l’anthélix, se trouve l’antitragus.', g('oreille', 3)),
-          p('Les ombres', 'La conque est la zone la plus sombre de l’oreille. Ombre aussi l’intérieur du rebord ; les crêtes restent claires.', g('oreille', 5))
+          p('Le placement', 'L’oreille tient dans un ovale incliné vers l’arrière, entre la ligne des sourcils et celle de la base du nez. Pose ces deux repères avant tout.', g('oreille-realiste', 0)),
+          p('Le contour extérieur', 'Le rebord, l’hélix, s’enroule depuis le haut et descend jusqu’au lobe, plus charnu. Cherche d’abord cette grande forme, sans entrer dans les détails.', g('oreille-realiste', 1)),
+          p('Anthélix et conque', 'À l’intérieur, une crête en forme de Y, l’anthélix, suit le rebord. Elle entoure la conque, le creux profond qui mène au conduit.', g('oreille-realiste', 2)),
+          p('Tragus et épaisseur', 'Devant la conque, le tragus forme un petit rabat ; en face, sous l’anthélix, l’antitragus. Donne de l’épaisseur au rebord : c’est un volume, pas une ligne.', g('oreille-realiste', 3)),
+          p('Les ombres', 'La conque est la zone la plus sombre de l’oreille. Ombre aussi le dessous du rebord et l’ombre portée de l’oreille sur la tête.', g('oreille-realiste', 4)),
+          p('Le rendu final', 'Adoucis les demi-teintes et garde des lumières nettes sur les crêtes : hélix, anthélix et lobe. Efface la construction.', g('oreille-realiste', 5))
         ]
       },
       {

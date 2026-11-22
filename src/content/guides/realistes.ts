@@ -53,3 +53,20 @@ export const boucheRealiste: Guide = {
     { title: 'Rendu final et reflets, construction effacée' }
   ]
 };
+
+export const oreilleRealiste: Guide = {
+  id: 'oreille-realiste',
+  title: 'Oreille réaliste au graphite',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('oreille', 6),
+  steps: [
+    { title: 'Ovale incliné entre la ligne des sourcils et celle du nez' },
+    { title: 'Contour extérieur : hélix et lobe' },
+    { title: 'Anthélix en Y et conque' },
+    { title: 'Tragus, antitragus et épaisseur du rebord' },
+    { title: 'Ombres : la conque est la zone la plus sombre' },
+    { title: 'Rendu final, lumières sur les crêtes' }
+  ]
+};
