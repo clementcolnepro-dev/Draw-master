@@ -1,20 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { useProgress } from '../lib/progress';
-import { fetchPoses, getUnsplashKey, pingUnsplash, setUnsplashKey, type PosePhoto, type PoseSource } from '../lib/poses';
+import { fetchPoses, getUnsplashKey, loadMyPoses, pingUnsplash, saveMyPoses, setUnsplashKey, shrinkPhoto, type PosePhoto, type PoseSource } from '../lib/poses';
 
 const SRC_STORE = 'dm-timer-source';
 const sources: { id: PoseSource; label: string }[] = [
-  { id: 'aucune', label: 'Mes photos' },
-  { id: 'muybridge', label: 'Mouvement (Muybridge)' },
-  { id: 'unsplash', label: 'Poses modernes' },
+  { id: 'unsplash', label: 'Modèles (Unsplash)' },
+  { id: 'mes', label: 'Mes photos' },
   { id: 'melange', label: 'Mélange' }
 ];
 const loadSource = (): PoseSource => {
   try {
     const v = localStorage.getItem(SRC_STORE) as PoseSource | null;
-    return v && sources.some((x) => x.id === v) ? v : 'muybridge';
+    return v && sources.some((x) => x.id === v) ? v : 'unsplash';
   } catch {
-    return 'muybridge';
+    return 'unsplash';
   }
 };
 
@@ -54,6 +53,33 @@ export default function Timer() {
   const [keyInput, setKeyInput] = useState('');
   const [hasKey, setHasKey] = useState(!!getUnsplashKey());
   const [mirror, setMirror] = useState(false);
+  const [myCount, setMyCount] = useState(0);
+  const [adding, setAdding] = useState(false);
+
+  useEffect(() => {
+    loadMyPoses().then((l) => setMyCount(l.length));
+  }, []);
+
+  const addPhotos = async (files: File[]) => {
+    if (!files.length) return;
+    setAdding(true);
+    try {
+      const cur = await loadMyPoses();
+      const added: Blob[] = [];
+      for (const f of files) if (f.type.startsWith('image/')) added.push(await shrinkPhoto(f));
+      const all = [...cur, ...added];
+      await saveMyPoses(all);
+      setMyCount(all.length);
+    } catch {
+      setError('Impossible d’enregistrer ces photos sur le téléphone.');
+    } finally {
+      setAdding(false);
+    }
+  };
+  const clearPhotos = async () => {
+    await saveMyPoses([]);
+    setMyCount(0);
+  };
 
   useEffect(() => {
     try {
@@ -97,11 +123,11 @@ export default function Timer() {
       audio.current = null;
     }
     let list: PosePhoto[] = [];
-    if (source !== 'aucune') {
+    {
       setLoading(true);
       try {
         list = await fetchPoses(source, rounds);
-        if (!list.length) throw new Error('Aucune photo trouvée. Vérifie ta connexion et réessaie.');
+        if (!list.length) throw new Error(source === 'mes' ? 'Ajoute d’abord quelques photos.' : 'Aucune photo trouvée. Vérifie ta connexion et réessaie.');
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Impossible de charger les photos.');
         return;
@@ -197,11 +223,28 @@ export default function Timer() {
             ))}
           </div>
           <p className="tiny muted">
-            {source === 'aucune' && 'Ouvre tes propres photos de poses dans une autre application ou sur un autre écran.'}
-            {source === 'muybridge' && 'Photos d’Eadweard Muybridge (1887) : hommes et femmes en mouvement, souvent nus. Domaine public, idéal pour l’anatomie et le geste.'}
-            {source === 'unsplash' && 'Photos modernes de poses (danse, sport, mode), habillées, en couleur.'}
-            {source === 'melange' && (hasKey ? 'Moitié Muybridge, moitié photos modernes, dans un ordre aléatoire.' : 'Sans clé Unsplash, seules les photos de Muybridge sont utilisées.')}
+            {source === 'unsplash' && 'Photos nettes d’une seule personne, en pied, souvent en studio : danse, sport, mode. Une pose par photo.'}
+            {source === 'mes' && 'Tes propres photos de référence (par exemple des nus académiques), tirées au hasard. Elles restent sur ce téléphone.'}
+            {source === 'melange' && (hasKey ? 'Moitié tes photos, moitié Unsplash, dans un ordre aléatoire.' : 'Sans clé Unsplash, seules tes photos sont utilisées.')}
           </p>
+          {(source === 'mes' || source === 'melange') && (
+            <div className="row wrap">
+              <label className="btn small" style={{ cursor: 'pointer' }}>
+                {adding ? 'Ajout…' : '+ Ajouter des photos'}
+                <input type="file" accept="image/*" multiple hidden onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    e.target.value = '';
+                    addPhotos(files);
+                  }} />
+              </label>
+              <span className="tiny">{myCount} photo{myCount > 1 ? 's' : ''} enregistrée{myCount > 1 ? 's' : ''}</span>
+              {myCount > 0 && (
+                <button className="btn ghost small" onClick={clearPhotos}>
+                  Tout effacer
+                </button>
+              )}
+            </div>
+          )}
           {(source === 'unsplash' || source === 'melange') &&
             (hasKey ? (
               <button
@@ -277,11 +320,14 @@ export default function Timer() {
           {shown && <img src={shown.url} alt="Modèle à dessiner" style={mirror ? { transform: 'scaleX(-1)' } : undefined} />}
           {state === 'rest' && <div className="pose-next">Pose suivante dans {left} s</div>}
         </div>
-        {shown && (
-          <a className="pose-credit" href={shown.link} target="_blank" rel="noreferrer">
-            {shown.credit}
-          </a>
-        )}
+        {shown &&
+          (shown.link ? (
+            <a className="pose-credit" href={shown.link} target="_blank" rel="noreferrer">
+              {shown.credit}
+            </a>
+          ) : (
+            <span className="pose-credit">{shown.credit}</span>
+          ))}
         <div className="row center">
           <button className="btn ghost small" onClick={togglePause}>
             {state === 'paused' ? '▶ Reprendre' : '❚❚ Pause'}

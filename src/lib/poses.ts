@@ -1,10 +1,12 @@
+import { db } from './db';
+
 /**
  * Photos de modèles pour le minuteur de croquis, chargées en direct depuis Internet par le téléphone.
- * - Muybridge (Animal Locomotion, 1887) via l'API de Wikimedia Commons : domaine public, sans clé.
- * - Unsplash : photos modernes, nécessite une clé d'accès gratuite (enregistrée sur l'appareil).
+ * - Unsplash : photos nettes d'une seule personne, en studio de préférence ; clé d'accès gratuite enregistrée sur l'appareil.
+ * - Mes photos : photos choisies par l'utilisateur (ex. nus académiques), enregistrées dans le téléphone.
  */
 
-export type PoseSource = 'aucune' | 'muybridge' | 'unsplash' | 'melange';
+export type PoseSource = 'unsplash' | 'mes' | 'melange';
 
 export interface PosePhoto {
   url: string;
@@ -40,69 +42,69 @@ const shuffle = <T,>(a: T[]) => {
   return b;
 };
 
-// --- Muybridge / Wikimedia Commons ---
+// --- Mes photos (enregistrées sur l'appareil) ---
 
-/** Recherches ciblées sur les planches de figures humaines adultes. */
-const MUY_QUERIES = [
-  'Muybridge "Animal Locomotion" woman',
-  'Muybridge "Animal Locomotion" man',
-  'Muybridge "Animal Locomotion" nude',
-  'Muybridge "Animal Locomotion" athlete',
-  'Muybridge "Animal Locomotion" walking',
-  'Muybridge "Animal Locomotion" running',
-  'Muybridge "Animal Locomotion" jumping',
-  'Muybridge "Animal Locomotion" lifting',
-  'Muybridge "Animal Locomotion" throwing',
-  'Muybridge "Animal Locomotion" dancing'
-];
-const EXCLUDE = ' -horse -mule -donkey -dog -cat -bird -ox -buffalo -deer -elephant -pig -goat -camel -lion -tiger -child -children -boy -girl -infant -baby -abnormal';
-/** Filtre de sécurité côté appli : animaux, enfants, cas pathologiques. */
-const REJECT = /(horse|mule|donkey|\bass\b|dog|cat\b|bird|pigeon|ox\b|buffalo|deer|elephant|pig\b|goat|camel|lion|tiger|cockatoo|eagle|child|children|boy|girl|infant|baby|kid\b|enfant|abnormal|infantile|cripple|amputee|deformed|paralys)/i;
+const MY_KEY = 'pose-photos';
 
-interface CommonsPage {
-  title: string;
-  imageinfo?: { thumburl?: string; url: string; descriptionurl: string; extmetadata?: Record<string, { value: string }> }[];
+export async function loadMyPoses(): Promise<Blob[]> {
+  try {
+    const d = await db();
+    return ((await d.get('kv', MY_KEY)) as Blob[] | undefined) || [];
+  } catch {
+    return [];
+  }
 }
 
-async function fetchMuybridge(n: number): Promise<PosePhoto[]> {
-  const out: PosePhoto[] = [];
-  const queries = shuffle(MUY_QUERIES).slice(0, 3);
-  for (const q of queries) {
-    const params = new URLSearchParams({
-      action: 'query',
-      format: 'json',
-      origin: '*',
-      generator: 'search',
-      gsrsearch: q + EXCLUDE,
-      gsrnamespace: '6',
-      gsrlimit: '40',
-      gsroffset: String(Math.floor(Math.random() * 4) * 40),
-      prop: 'imageinfo',
-      iiprop: 'url|extmetadata',
-      iiextmetadatafilter: 'ImageDescription|ObjectName',
-      iiurlwidth: '1400'
-    });
-    const r = await fetch(`https://commons.wikimedia.org/w/api.php?${params}`);
-    if (!r.ok) continue;
-    const data = (await r.json()) as { query?: { pages?: Record<string, CommonsPage> } };
-    for (const p of Object.values(data.query?.pages || {})) {
-      const info = p.imageinfo?.[0];
-      if (!info || !/\.(jpe?g|png|tiff?)$/i.test(p.title)) continue;
-      const desc = (info.extmetadata?.ImageDescription?.value || '') + ' ' + (info.extmetadata?.ObjectName?.value || '');
-      if (REJECT.test(p.title) || REJECT.test(desc)) continue;
-      out.push({ url: info.thumburl || info.url, credit: 'Eadweard Muybridge, 1887 · domaine public · Wikimedia Commons', link: info.descriptionurl });
-    }
-    if (out.length >= n * 2) break;
+export async function saveMyPoses(list: Blob[]) {
+  const d = await db();
+  await d.put('kv', list, MY_KEY);
+}
+
+/** Réduit une photo à 1600 px de côté pour économiser la place sur le téléphone. */
+export async function shrinkPhoto(file: Blob): Promise<Blob> {
+  try {
+    const bmp = await createImageBitmap(file);
+    const k = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+    if (k === 1 && file.size < 900_000) return file;
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * k);
+    c.height = Math.round(bmp.height * k);
+    c.getContext('2d')!.drawImage(bmp, 0, 0, c.width, c.height);
+    return await new Promise<Blob>((res) => c.toBlob((b) => res(b || file), 'image/jpeg', 0.86));
+  } catch {
+    return file;
   }
-  const seen = new Set<string>();
-  return shuffle(out.filter((x) => !seen.has(x.url) && seen.add(x.url))).slice(0, n);
+}
+
+async function myPoses(n: number): Promise<PosePhoto[]> {
+  const list = await loadMyPoses();
+  return shuffle(list)
+    .slice(0, n)
+    .map((b) => ({ url: URL.createObjectURL(b), credit: 'Ta photo', link: '' }));
 }
 
 // --- Unsplash ---
 
-const UNS_QUERIES = ['full body pose', 'dancer', 'athlete', 'yoga pose', 'model standing', 'person sitting', 'ballet', 'gymnast', 'fashion model full body', 'martial arts'];
+const UNS_QUERIES = [
+  'full body model studio',
+  'dancer studio',
+  'ballet dancer studio',
+  'athlete studio portrait',
+  'yoga pose studio',
+  'contemporary dancer',
+  'woman posing full body',
+  'man posing full body',
+  'fitness model studio',
+  'model sitting studio'
+];
+/** Écarte les photos où l'on devine plusieurs personnes. */
+const MANY = /\b(people|group|couple|two|three|crowd|friends|family|team|men|women|kids|children|pair|together|duo)\b/i;
 
 interface UnsplashPhoto {
+  alt_description?: string | null;
+  description?: string | null;
+  width: number;
+  height: number;
   urls: { regular: string };
   user: { name: string; links: { html: string } };
   links: { html: string; download_location: string };
@@ -112,13 +114,15 @@ async function fetchUnsplash(n: number, key: string): Promise<PosePhoto[]> {
   const out: PosePhoto[] = [];
   const queries = shuffle(UNS_QUERIES).slice(0, Math.min(3, Math.ceil(n / 10) + 1));
   for (const q of queries) {
-    const params = new URLSearchParams({ query: q, count: String(Math.min(30, Math.ceil(n / queries.length) + 2)), content_filter: 'high', orientation: 'portrait' });
+    const params = new URLSearchParams({ query: q, count: String(Math.min(30, Math.ceil((n * 1.6) / queries.length) + 3)), content_filter: 'high', orientation: 'portrait' });
     const r = await fetch(`https://api.unsplash.com/photos/random?${params}`, { headers: { Authorization: `Client-ID ${key}`, 'Accept-Version': 'v1' } });
     if (r.status === 401) throw new Error('Clé Unsplash refusée : vérifie l’« Access Key ».');
     if (r.status === 403) throw new Error('Limite Unsplash atteinte pour cette heure : réessaie plus tard.');
     if (!r.ok) continue;
     const list = (await r.json()) as UnsplashPhoto[];
     for (const ph of list) {
+      const text = `${ph.alt_description || ''} ${ph.description || ''}`;
+      if (MANY.test(text) || ph.height < ph.width) continue;
       out.push({
         url: ph.urls.regular,
         credit: `Photo : ${ph.user.name} · Unsplash`,
@@ -139,16 +143,13 @@ export function pingUnsplash(p: PosePhoto) {
 
 /** Récupère n photos pour la séance. */
 export async function fetchPoses(source: PoseSource, n: number): Promise<PosePhoto[]> {
-  if (source === 'aucune') return [];
   const key = getUnsplashKey();
-  if (source === 'muybridge') return fetchMuybridge(n);
+  if (source === 'mes') return myPoses(n);
   if (source === 'unsplash') {
     if (!key) throw new Error('Ajoute d’abord ta clé Unsplash.');
     return fetchUnsplash(n, key);
   }
-  // Mélange : moitié-moitié, ou Muybridge seul sans clé.
-  if (!key) return fetchMuybridge(n);
   const half = Math.ceil(n / 2);
-  const [a, b] = await Promise.all([fetchMuybridge(half).catch(() => []), fetchUnsplash(n - half + 2, key).catch(() => [])]);
+  const [a, b] = await Promise.all([myPoses(half), key ? fetchUnsplash(n - half + 2, key).catch(() => []) : Promise.resolve([])]);
   return shuffle([...a, ...b]).slice(0, n);
 }
