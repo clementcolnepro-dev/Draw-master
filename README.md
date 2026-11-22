@@ -3,6 +3,13 @@
 Application mobile (PWA) pour apprendre le dessin réaliste, du débutant à l’avancé : portrait, anatomie, vêtements et techniques du réalisme.
 Elle fonctionne hors connexion, s’installe sur l’écran d’accueil de l’iPhone et conserve toutes les données sur le téléphone.
 
+## Livre (v3)
+
+L’onglet **Livre** est un carnet à feuilleter : la page tourne au doigt (glisser), en touchant ses bords, avec les flèches ‹ › ou le clavier.
+Cinq livres : **Proportions** (corps entier, visage, hanches et bassin), **Visage** (tête, yeux, nez, bouche, oreille, cheveux), **Corps** (main, pied, torse, bras et jambes), **CSP · Bases** (toile, organisation des calques, modes de fusion) et **CSP · Rendus** (lumière, peau et matières, méthode de travail). La couverture de chaque livre sert de sommaire ; la page en cours est retenue pour chaque livre.
+
+Le contenu est dans `src/content/livre.ts` : une page = un titre, un texte court et une illustration (`g('id-du-guide', étape)` pour réutiliser un dessin guidé, ou un schéma de calques Clip Studio Paint).
+
 ## Dessins guidés (v2)
 
 L’onglet **Dessiner** propose 32 modèles à reproduire étape par étape, en images, sans déblocage : corps entier (femme, homme, proportions, mannequin, mouvement), tête, éléments du visage (œil, nez, bouche, oreille), parties du corps (torse, main, pied), vêtements (t-shirt, jean, robe, plis) et bases (volumes, ombres, matières).
