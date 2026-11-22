@@ -155,3 +155,20 @@ export const bassinFemme: Guide = {
     { title: 'Rendu final, construction effacée' }
   ]
 };
+
+export const bassinHomme: Guide = {
+  id: 'bassin-homme',
+  title: 'Bassin et hanches — homme',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('bassin-homme', 6),
+  steps: [
+    { title: 'Repères : axe, taille, crêtes iliaques, pli de l’aine' },
+    { title: 'Squelette du bassin : étroit et haut', tip: 'Les crêtes iliaques ressortent sous les obliques' },
+    { title: 'Volumes : bassin en coin, cuisses en cylindres' },
+    { title: 'Contour définitif : obliques, aine, haut des cuisses' },
+    { title: 'Ombres et volumes musculaires' },
+    { title: 'Rendu final, construction effacée' }
+  ]
+};

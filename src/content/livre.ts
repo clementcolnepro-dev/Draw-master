@@ -116,6 +116,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Bassin et hanches — homme',
+        pages: [
+          p('Les repères', 'Trace l’axe central, la taille, la ligne des crêtes iliaques et celle des plis de l’aine. Chez l’homme, la taille est peu marquée : le torse descend presque droit vers les hanches.', g('bassin-homme', 0)),
+          p('Le squelette', 'Le bassin masculin est plus étroit et plus haut que celui de la femme. Les têtes des fémurs sont plus rapprochées, les cuisses descendent presque à la verticale.', g('bassin-homme', 1)),
+          p('Les volumes', 'Simplifie le bassin en coin, pointe en bas, et les cuisses en deux cylindres. Cette forme en V annonce déjà les plis de l’aine.', g('bassin-homme', 2)),
+          p('Le contour', 'Au-dessus des crêtes iliaques, les muscles obliques forment un bourrelet net sur les flancs. Les plis de l’aine descendent en V vers le centre.', g('bassin-homme', 3)),
+          p('Les ombres', 'Les volumes sont plus anguleux que chez la femme : marque les ombres sous les obliques, le long des abdominaux et à l’intérieur des cuisses.', g('bassin-homme', 4)),
+          p('Le rendu final', 'Garde des transitions plus franches pour montrer la musculature. Efface la construction et fais ressortir les reliefs avec des lumières nettes.', g('bassin-homme', 5))
+        ]
+      },
+      {
         title: 'Les hanches et le bassin',
         pages: [
           p('Le bassin en boîte', 'Simplifie le bassin en boîte ou en bol incliné. Son orientation donne celle des hanches et montre sur quelle jambe repose le poids.', g('c2-mannequin', 3)),
