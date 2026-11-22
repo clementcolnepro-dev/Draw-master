@@ -19,3 +19,20 @@ export const oeilRealiste: Guide = {
     { title: 'Rendu final et reflet, construction effacée' }
   ]
 };
+
+export const nezRealiste: Guide = {
+  id: 'nez-realiste',
+  title: 'Nez réaliste au graphite',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('nez', 6),
+  steps: [
+    { title: 'Le bloc : un coin à trois faces', tip: 'L’arête est la face éclairée, le côté droit est dans l’ombre' },
+    { title: 'Trois cercles : la pointe et les deux ailes' },
+    { title: 'Contour utile, narine et ailes' },
+    { title: 'Premières ombres : dessous et côté du nez' },
+    { title: 'Demi-teintes et transitions le long de l’arête' },
+    { title: 'Rendu final et reflets, construction effacée' }
+  ]
+};

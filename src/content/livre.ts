@@ -146,10 +146,12 @@ export const books: Book[] = [
       {
         title: 'Le nez',
         pages: [
-          p('Un coin en plans', 'Le nez est un coin à trois faces : le dessus (l’arête) et deux côtés. Repère d’abord ces plans simples avant le moindre contour.', g('b5-nez', 0)),
-          p('Les trois boules', 'Construis la pointe et les deux ailes avec trois boules : une au centre, deux plus petites sur les côtés. La pointe est en général la plus grosse.', g('b5-nez', 1)),
-          p('Les narines', 'De face, les narines sont deux petites formes sombres sous la pointe, pas des trous ronds. Leur forme suit la courbe des ailes.', g('b5-nez', 2)),
-          p('Les ombres', 'Les ombres décrivent mieux le nez que des contours foncés. Ombre un côté de l’arête et le dessous ; côté lumière, laisse les bords presque sans trait.', g('b5-nez', 4))
+          p('Un bloc en coin', 'Le nez est un coin à trois faces : l’arête sur le dessus et deux côtés. Dessine ce bloc simple en premier, il donne l’angle et la longueur du nez.', g('nez-realiste', 0)),
+          p('Trois cercles', 'Construis la pointe et les deux ailes avec trois cercles. La pointe est en général le plus gros ; l’aile éloignée paraît plus petite et passe en partie derrière.', g('nez-realiste', 1)),
+          p('Le contour utile', 'Arrondis le bloc autour des cercles et place la narine : une forme sombre allongée, pas un trou rond. Ne cerne pas tout le nez, seulement les bords qui comptent.', g('nez-realiste', 2)),
+          p('Les premières ombres', 'Ombre le dessous du nez, le côté opposé à la lumière et l’ombre portée sur la lèvre. Ces ombres décrivent le volume bien mieux qu’un contour foncé.', g('nez-realiste', 3)),
+          p('Les demi-teintes', 'Adoucis les transitions entre lumière et ombre le long de l’arête et autour des ailes. Le nez se fond progressivement dans la joue, sans ligne dure.', g('nez-realiste', 4)),
+          p('Le rendu final', 'Fonce les narines et le dessous, efface la construction. Garde de petits reflets nets sur la pointe et l’arête : la peau du nez est souvent brillante.', g('nez-realiste', 5))
         ]
       },
       {
