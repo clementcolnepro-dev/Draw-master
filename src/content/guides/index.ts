@@ -1,6 +1,7 @@
 import type { Guide, GuideCategory } from './types';
 import { corpsFemme, corpsHomme } from './corps';
 import { corpsFemmeClement } from './clement';
+import { oeilRealiste } from './realistes';
 import { teteFace, oreille, pied, jean, robe } from './nouveaux';
 import { allLessons } from '../index';
 
@@ -42,7 +43,7 @@ export const guideCategories: GuideCategory[] = [
     title: 'Éléments du visage',
     subtitle: 'Œil, nez, bouche, oreille',
     icon: '◉',
-    guides: [fromLesson('b4-oeil', 'Œil réaliste'), fromLesson('b5-nez', 'Nez de face'), fromLesson('b6-bouche', 'Bouche et lèvres'), oreille]
+    guides: [oeilRealiste, fromLesson('b4-oeil', 'Œil (schéma)'), fromLesson('b5-nez', 'Nez de face'), fromLesson('b6-bouche', 'Bouche et lèvres'), oreille]
   },
   {
     id: 'membres',

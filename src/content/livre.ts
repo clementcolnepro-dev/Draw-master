@@ -135,11 +135,12 @@ export const books: Book[] = [
       {
         title: 'Les yeux',
         pages: [
-          p('La forme générale', 'Un œil n’est pas une amande plate : c’est une boule enveloppée par les paupières. Le coin extérieur est souvent un peu plus haut que le coin intérieur.', g('b4-oeil', 0)),
-          p('L’iris', 'L’iris est un cercle en partie caché par la paupière supérieure. Un iris entièrement visible donne un regard effrayé : laisse le haut passer sous la paupière.', g('b4-oeil', 1)),
-          p('Les paupières', 'La paupière supérieure a une épaisseur : dessine son pli au-dessus et son rebord le long de l’œil. La paupière inférieure est plus fine, souvent juste suggérée.', g('b4-oeil', 3)),
-          p('Les ombres', 'Le blanc de l’œil n’est jamais blanc pur : c’est une boule. Ombre légèrement ses coins et le haut, sous la paupière qui projette son ombre sur l’iris.', g('b4-oeil', 4)),
-          p('Cils et reflet', 'Les cils partent du rebord en courbes groupées, plus longs vers l’extérieur. Termine par un reflet net sur l’iris, côté lumière : c’est lui qui rend le regard vivant.', g('b4-oeil', 6))
+          p('La construction', 'Un œil n’est pas une amande plate : c’est une boule enveloppée par les paupières. Trace le cercle du globe, les axes et la forme générale, très légèrement.', g('oeil-realiste', 0)),
+          p('Paupières et iris', 'Pose le contour des paupières autour du globe, avec leur épaisseur. Place l’iris : la paupière supérieure en cache toujours un peu le haut, sinon le regard paraît effrayé.', g('oeil-realiste', 1)),
+          p('Iris, pupille et pli', 'Dessine la pupille au centre de l’iris et quelques stries qui rayonnent. Ajoute le pli de la paupière supérieure, qui suit la courbe du globe.', g('oeil-realiste', 2)),
+          p('Les premières ombres', 'Le blanc de l’œil n’est jamais blanc pur. Ombre ses coins, le dessous de la paupière et le creux de l’orbite : l’œil s’enfonce dans le visage.', g('oeil-realiste', 3)),
+          p('Cils et sourcil', 'Les cils partent du rebord en courbes groupées, plus longs vers l’extérieur ; ceux du bas sont plus courts et clairsemés. Le sourcil se dessine poil par poil dans le sens de la pousse.', g('oeil-realiste', 4)),
+          p('Le rendu final', 'Fonce les valeurs autour de l’iris et efface la construction. Garde un reflet net sur l’iris, côté lumière : c’est lui qui rend le regard vivant.', g('oeil-realiste', 5))
         ]
       },
       {
