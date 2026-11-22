@@ -289,6 +289,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Torse — femme',
+        pages: [
+          p('Les repères', 'Trace l’axe central puis les lignes des épaules, des clavicules, de la poitrine et de la taille. Elles restent parallèles tant que le torse ne se tord pas.', g('torse-femme', 0)),
+          p('Les blocs', 'La cage thoracique est un œuf incliné, le cou un cylindre, les épaules des sphères. Sous la poitrine, l’arc costal forme un V inversé qui donne l’orientation de la cage.', g('torse-femme', 1)),
+          p('Les volumes', 'Les pectoraux partent du sternum en éventail vers les épaules. La poitrine se pose dessus en deux gouttes, attachées vers l’aisselle et légèrement orientées vers l’extérieur, en suivant la courbe de la cage.', g('torse-femme', 2)),
+          p('Le contour', 'Passe au contour en courbes : cou, trapèzes, épaules, aisselles, galbe de la poitrine et taille. La base de la poitrine se lit surtout par l’ombre qu’elle porte.', g('torse-femme', 3)),
+          p('Les ombres', 'Ombre le dessous de la poitrine, le creux sous les clavicules et les côtés de la cage. Ces ombres suffisent à faire tourner les volumes.', g('torse-femme', 4)),
+          p('Le rendu final', 'Adoucis les demi-teintes, garde des lumières sur les clavicules, le haut de la poitrine et le ventre, et efface la construction.', g('torse-femme', 5))
+        ]
+      },
+      {
         title: 'Bras et jambes',
         pages: [
           p('Les membres en tubes', 'Construis bras et jambes avec des cylindres souples : un pour le haut, un pour le bas. Ils s’affinent vers le coude, le poignet, le genou et la cheville.', g('corps-homme', 3)),

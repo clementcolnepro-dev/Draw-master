@@ -206,3 +206,20 @@ export const basventreFemme: Guide = {
     { title: 'Rendu final façon marbre' }
   ]
 };
+
+export const torseFemme: Guide = {
+  id: 'torse-femme',
+  title: 'Torse — femme (de face)',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('torse-femme', 6),
+  steps: [
+    { title: 'Repères : axe, épaules, clavicules, poitrine, taille' },
+    { title: 'Blocs : cage en œuf, cou, épaules en sphères, arc costal' },
+    { title: 'Volumes : pectoraux et poitrine en gouttes, ventre en ovale', tip: 'La poitrine s’oriente légèrement vers l’extérieur' },
+    { title: 'Contour fluide' },
+    { title: 'Ombres en suivant les volumes' },
+    { title: 'Rendu final façon marbre' }
+  ]
+};
