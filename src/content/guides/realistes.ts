@@ -87,3 +87,20 @@ export const mainVues: Guide = {
     { title: 'Main détendue, vue du dessus en perspective' }
   ]
 };
+
+export const mainRealiste: Guide = {
+  id: 'main-realiste',
+  title: 'Main réaliste au graphite (dos)',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('main', 6),
+  steps: [
+    { title: 'La paume en boîte et l’axe du poignet' },
+    { title: 'L’arc des jointures et la direction des doigts', tip: 'Les doigts partent en éventail depuis le poignet' },
+    { title: 'Doigts en cylindres segmentés, pouce à la base' },
+    { title: 'Contour définitif, plis et ongles' },
+    { title: 'Premières ombres' },
+    { title: 'Rendu final : tendons, veines, demi-teintes' }
+  ]
+};

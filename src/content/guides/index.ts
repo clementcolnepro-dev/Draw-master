@@ -1,7 +1,7 @@
 import type { Guide, GuideCategory } from './types';
 import { corpsFemme, corpsHomme } from './corps';
 import { corpsFemmeClement } from './clement';
-import { oeilRealiste, nezRealiste, boucheRealiste, oreilleRealiste, mainVues } from './realistes';
+import { oeilRealiste, nezRealiste, boucheRealiste, oreilleRealiste, mainVues, mainRealiste } from './realistes';
 import { teteFace, oreille, pied, jean, robe } from './nouveaux';
 import { allLessons } from '../index';
 
@@ -50,7 +50,7 @@ export const guideCategories: GuideCategory[] = [
     title: 'Parties du corps',
     subtitle: 'Torse, mains, pieds',
     icon: '✋',
-    guides: [fromLesson('c3-cage-bassin', 'Torse : cage thoracique et bassin'), fromLesson('c4-mains', 'Main (dos)'), mainVues, pied]
+    guides: [fromLesson('c3-cage-bassin', 'Torse : cage thoracique et bassin'), mainRealiste, mainVues, fromLesson('c4-mains', 'Main (schéma)'), pied]
   },
   {
     id: 'vetements',

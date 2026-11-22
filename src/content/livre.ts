@@ -194,12 +194,12 @@ export const books: Book[] = [
       {
         title: 'La main',
         pages: [
-          p('La paume', 'Commence par la paume : une boîte souple, un peu plus haute que large. Observe la direction générale de la main avant de penser aux doigts.', g('c4-mains', 0)),
-          p('L’arc des jointures', 'Les jointures des doigts ne sont pas alignées : elles forment un arc. Celle du majeur est la plus haute, celle de l’auriculaire la plus basse.', g('c4-mains', 1)),
-          p('La longueur des doigts', 'Le majeur fait presque la longueur de la paume. Les autres doigts s’organisent autour de lui, en éventail.', g('c4-mains', 2)),
-          p('Les phalanges', 'Chaque doigt compte trois phalanges, de plus en plus courtes vers le bout. Dessine-les comme de petits cylindres reliés par des articulations.', g('c4-mains', 3)),
-          p('Le pouce', 'Le pouce part du bas de la paume, pas du côté des doigts. Sa base charnue occupe une grande partie de la paume.', g('c4-mains', 4)),
-          p('Volumes et valeurs', 'Arrondis les blocs, marque les plis aux articulations et ombre le côté opposé à la lumière. Les ongles viennent en tout dernier.', g('c4-mains', 6))
+          p('La paume', 'Commence par la paume : une boîte un peu trapézoïdale, plus large côté doigts. Trace l’axe du poignet pour donner la direction de toute la main.', g('main-realiste', 0)),
+          p('L’arc des jointures', 'Les jointures ne sont pas alignées : elles forment un arc qui monte vers le majeur. Les doigts partent en éventail depuis le poignet, suis ces lignes de direction.', g('main-realiste', 1)),
+          p('Les doigts en cylindres', 'Chaque doigt compte trois phalanges, de plus en plus courtes vers le bout : dessine-les en petits cylindres. Le pouce part du bas de la paume, pas du côté des doigts.', g('main-realiste', 2)),
+          p('Le contour définitif', 'Passe au contour en suivant les cylindres, puis ajoute les plis aux articulations et les ongles. Le contour ondule : bosses aux jointures, creux entre elles.', g('main-realiste', 3)),
+          p('Les premières ombres', 'Ombre le côté opposé à la lumière, l’intérieur des doigts et l’ombre portée sous la main. Les doigts qui se touchent créent de petites zones très sombres.', g('main-realiste', 4)),
+          p('Le rendu final', 'Suggère les tendons et les veines par de légères demi-teintes, sans les cerner. Efface la construction et fonce les ombres pour faire ressortir le volume.', g('main-realiste', 5))
         ]
       },
       {
