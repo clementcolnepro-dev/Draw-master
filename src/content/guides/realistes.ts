@@ -189,3 +189,20 @@ export const fessiersFemme: Guide = {
     { title: 'Rendu final, construction effacée' }
   ]
 };
+
+export const basventreFemme: Guide = {
+  id: 'basventre-femme',
+  title: 'Bas-ventre et aine — femme',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('basventre-femme', 6),
+  steps: [
+    { title: 'Repères : axe, nombril, crêtes iliaques, plis de l’aine en V' },
+    { title: 'Blocs : bassin en boîte inclinée, épines iliaques, cuisses' },
+    { title: 'Volumes : écusson du bas-ventre et masse des hanches' },
+    { title: 'Contour fluide en courbes en S' },
+    { title: 'Ombres en suivant les volumes' },
+    { title: 'Rendu final façon marbre' }
+  ]
+};

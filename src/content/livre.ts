@@ -116,6 +116,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Bas-ventre et aine — femme',
+        pages: [
+          p('Les repères', 'Trace l’axe central, qui se courbe avec la pose, la ligne du nombril et celle des crêtes iliaques. Les deux plis de l’aine descendent en V et se rejoignent au centre, entre les cuisses.', g('basventre-femme', 0)),
+          p('Les blocs', 'Le bassin est une boîte inclinée : en appui sur une jambe, le côté de l’appui monte. Les deux épines iliaques, petites bosses osseuses à l’avant, marquent les coins supérieurs de la boîte.', g('basventre-femme', 1)),
+          p('Les volumes', 'Le bas-ventre forme un écusson arrondi entre les plis de l’aine, avec un léger renflement sous le nombril. Sur les côtés, la masse des hanches déborde au-dessus des cuisses.', g('basventre-femme', 2)),
+          p('Le contour', 'Relie la taille, les hanches, les plis de l’aine et le haut des cuisses par des courbes en S. Les plis de l’aine sont des creux doux, pas des traits durs.', g('basventre-femme', 3)),
+          p('Les ombres', 'Ombre le creux des plis de l’aine, les côtés du ventre et l’espace entre les cuisses. Le ventre, tourné vers la lumière, reste la zone la plus claire.', g('basventre-femme', 4)),
+          p('Le rendu final', 'Sur une statue de marbre, les reflets sont plus nets et les ombres plus franches que sur la peau. Pour un rendu de peau, adoucis davantage les transitions.', g('basventre-femme', 5))
+        ]
+      },
+      {
         title: 'Fessiers — femme',
         pages: [
           p('Les repères', 'Pars de la ligne d’action de la colonne, puis place la taille, les crêtes iliaques et les plis fessiers. En appui sur une jambe, ces lignes s’inclinent : la hanche monte du côté de l’appui.', g('fessiers-femme', 0)),
