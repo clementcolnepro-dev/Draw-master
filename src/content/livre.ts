@@ -203,6 +203,17 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'La main sous tous les angles',
+        pages: [
+          p('Le dos de la main', 'Doigts écartés, l’arc des jointures se lit clairement : il monte vers le majeur. Les tendons partent du poignet en éventail vers chaque doigt.', g('main-vues', 0)),
+          p('La paume', 'Côté paume, les doigts paraissent plus courts : leurs plis de base sont plus bas que les jointures du dos. La base du pouce et le bord opposé forment deux coussins charnus.', g('main-vues', 1)),
+          p('De profil', 'De profil, la main est un coin : épaisse au poignet, fine au bout des doigts. Les doigts se superposent, seul le plus proche est entièrement visible.', g('main-vues', 2)),
+          p('Le poing fermé', 'Dans un poing, les premières phalanges forment un bloc plat et les jointures deviennent les points les plus saillants. Le pouce se replie par-dessus, en travers.', g('main-vues', 3)),
+          p('Tenir un objet', 'Quand la main tient un objet, dessine d’abord l’objet, puis les points de contact. Le pouce et l’index pincent, les autres doigts suivent en se repliant de plus en plus.', g('main-vues', 4)),
+          p('En perspective', 'Vue du dessus en perspective, les doigts proches paraissent plus longs et les éloignés se raccourcissent. Les ellipses des articulations aident à garder les volumes cohérents.', g('main-vues', 5))
+        ]
+      },
+      {
         title: 'Le pied',
         pages: [
           p('Trois repères', 'Place trois cercles : le talon, la cheville et la base des orteils. Relie-les : tu as déjà la direction du pied.', g('pied', 0)),

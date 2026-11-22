@@ -70,3 +70,20 @@ export const oreilleRealiste: Guide = {
     { title: 'Rendu final, lumières sur les crêtes' }
   ]
 };
+
+export const mainVues: Guide = {
+  id: 'main-vues',
+  title: 'Main : 6 vues pour comprendre la forme',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('main-vues', 6),
+  steps: [
+    { title: 'Dos de la main, doigts écartés', tip: 'Repère l’arc des jointures et les tendons en éventail' },
+    { title: 'Paume de face' },
+    { title: 'Profil, côté pouce' },
+    { title: 'Poing fermé, de trois quarts' },
+    { title: 'Main qui tient un crayon' },
+    { title: 'Main détendue, vue du dessus en perspective' }
+  ]
+};
