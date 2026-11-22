@@ -121,3 +121,20 @@ export const piedVues: Guide = {
     { title: 'Sur la pointe, talon levé' }
   ]
 };
+
+export const piedRealiste: Guide = {
+  id: 'pied-realiste',
+  title: 'Pied réaliste au graphite',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('pied-real', 6),
+  steps: [
+    { title: 'Repères : talon, cheville, base des orteils' },
+    { title: 'Le bloc en coin du pied', tip: 'Le dessus est éclairé, le côté est dans l’ombre' },
+    { title: 'Contour au trait' },
+    { title: 'Malléole, tendons, orteils et ombre au sol' },
+    { title: 'Ombres et demi-teintes' },
+    { title: 'Rendu final, construction effacée' }
+  ]
+};

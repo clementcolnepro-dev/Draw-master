@@ -216,11 +216,12 @@ export const books: Book[] = [
       {
         title: 'Le pied',
         pages: [
-          p('Trois repères', 'Place trois cercles : le talon, la cheville et la base des orteils. Relie-les : tu as déjà la direction du pied.', g('pied', 0)),
-          p('Le bloc en coin', 'Simplifie le pied en coin : talon, cou-de-pied et avant-pied. En perspective, il peut paraître beaucoup plus court qu’il ne l’est.', g('pied', 1)),
-          p('Le contour', 'Suis la jambe jusqu’au cou-de-pied puis aux orteils, et reviens par la voûte jusqu’au talon. Le bord intérieur est cambré, le bord extérieur repose presque à plat.', g('pied', 2)),
-          p('Malléoles et tendon', 'La malléole intérieure est plus haute que l’extérieure. Derrière, le tendon d’Achille relie le mollet au talon en une ligne nette.', g('pied', 3)),
-          p('Les ombres', 'Ombre le dessous du pied et l’arrière du talon. Une ombre portée au sol suffit à poser le pied et à lui donner du poids.', g('pied', 5))
+          p('Trois repères', 'Place trois cercles légers : le talon, la cheville et la base des orteils. Relie-les à l’axe de la jambe : tu as déjà la direction et la longueur du pied.', g('pied-realiste', 0)),
+          p('Le bloc en coin', 'Simplifie le pied en coin : haut au cou-de-pied, fin vers les orteils. En séparant le dessus éclairé du côté dans l’ombre, tu fixes déjà le volume.', g('pied-realiste', 1)),
+          p('Le contour', 'Suis la jambe jusqu’au cou-de-pied, descends vers les orteils et reviens par le talon. Les orteils s’alignent en une ligne qui descend du gros orteil au petit.', g('pied-realiste', 2)),
+          p('Les détails', 'Ajoute la malléole, les tendons qui partent vers les orteils et les ongles. Pose déjà l’ombre portée au sol : elle ancre le pied.', g('pied-realiste', 3)),
+          p('Les ombres', 'Ombre le côté du pied, le dessous de la malléole et l’arrière du talon. Garde le dessus du pied clair, il reçoit la lumière.', g('pied-realiste', 4)),
+          p('Le rendu final', 'Fonce les valeurs, adoucis les transitions et efface la construction. Les reflets sur la malléole et les orteils donnent l’impression de peau.', g('pied-realiste', 5))
         ]
       },
       {
