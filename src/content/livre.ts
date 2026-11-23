@@ -127,6 +127,15 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Bas-ventre et aine — homme',
+        pages: [
+          p('La construction', 'Pose le bassin en boîte sous le nombril, les deux épines iliaques en petits cercles sur les côtés et les cuisses en cylindres. Les plis de l’aine partent des épines et descendent en V vers le centre.', g('basventre-homme', 0)),
+          p('Le contour', 'Chez l’homme, le bas des abdominaux reste visible et les obliques forment un bourrelet net au-dessus des crêtes iliaques. Les plis de l’aine sont marqués et presque rectilignes.', g('basventre-homme', 1)),
+          p('Les ombres', 'Ombre en hachures sous les obliques, entre les abdominaux, dans les plis de l’aine et entre les cuisses. Les hachures suivent la direction des muscles.', g('basventre-homme', 2)),
+          p('Le rendu final', 'Garde des transitions franches entre les muscles et des lumières nettes sur les reliefs : abdominaux, obliques, haut des cuisses.', g('basventre-homme', 3))
+        ]
+      },
+      {
         title: 'Fessiers — femme',
         pages: [
           p('Les repères', 'Pars de la ligne d’action de la colonne, puis place la taille, les crêtes iliaques et les plis fessiers. En appui sur une jambe, ces lignes s’inclinent : la hanche monte du côté de l’appui.', g('fessiers-femme', 0)),

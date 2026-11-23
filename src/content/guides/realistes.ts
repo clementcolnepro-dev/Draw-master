@@ -263,3 +263,18 @@ export const fessiersHomme: Guide = {
     { title: 'Rendu final' }
   ]
 };
+
+export const basventreHomme: Guide = {
+  id: 'basventre-homme',
+  title: 'Bas-ventre et aine — homme',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('basventre-homme', 4),
+  steps: [
+    { title: 'Construction : bassin en boîte, épines iliaques, cuisses', tip: 'Les épines iliaques sont les deux bosses osseuses à l’avant des hanches' },
+    { title: 'Contour : abdominaux, obliques, plis de l’aine' },
+    { title: 'Ombres en hachures' },
+    { title: 'Rendu final façon marbre' }
+  ]
+};
