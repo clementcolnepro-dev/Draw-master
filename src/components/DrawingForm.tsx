@@ -36,7 +36,7 @@ export function DrawingFields({ value, onChange }: { value: DrawingMeta; onChang
           <option value="">— Aucun (dessin libre) —</option>
           {guideCategories.map((c) => (
             <optgroup key={c.id} label={c.title}>
-              {c.guides.map((g) => (
+              {c.guides.filter((g) => !g.pending).map((g) => (
                 <option key={g.id} value={g.id}>
                   {g.title}
                 </option>

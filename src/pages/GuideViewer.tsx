@@ -32,7 +32,7 @@ export default function GuideViewer() {
   const step = Math.min(Math.max(1, isNaN(raw) ? 1 : raw), n) - 1;
 
   useEffect(() => {
-    if (g) setLastGuide(g.id);
+    if (g && !g.pending) setLastGuide(g.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [g?.id]);
 
@@ -52,6 +52,15 @@ export default function GuideViewer() {
   }, [step]);
 
   if (!g || !cat) return <NotFound />;
+  if (g.pending)
+    return (
+      <div className="page">
+        <PageHeader title={g.title} kicker={cat.title} back={`/dessiner#${cat.id}`} />
+        <div className="card pending-card">
+          <p>Ce modèle attend ses planches photo réalistes. Il sera disponible dès qu’elles seront ajoutées.</p>
+        </div>
+      </div>
+    );
 
   const go = (i: number) => {
     const s = Math.max(0, Math.min(n - 1, i));

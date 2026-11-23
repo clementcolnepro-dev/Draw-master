@@ -71,7 +71,16 @@ export default function GuideCatalog() {
           </h2>
           <p className="muted small">{c.subtitle}</p>
           <div className="guide-grid">
-            {c.guides.map((g) => (
+            {c.guides.map((g) =>
+              g.pending ? (
+                <div key={g.id} className="guide-card pending-card" aria-disabled="true">
+                  <div className="guide-thumb pending-thumb">
+                    <span>Planche à venir</span>
+                  </div>
+                  <b>{g.title}</b>
+                  <span className="tiny">En attente de photos</span>
+                </div>
+              ) : (
               <Link key={g.id} to={`/dessiner/${g.id}`} className="guide-card">
                 <div className="guide-thumb">
                   <GuideCover g={g} />
@@ -82,7 +91,8 @@ export default function GuideCatalog() {
                   {g.steps.length} étapes · {g.level}
                 </span>
               </Link>
-            ))}
+              )
+            )}
           </div>
         </section>
       ))}

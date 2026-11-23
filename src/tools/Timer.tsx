@@ -55,6 +55,7 @@ export default function Timer() {
   const [mirror, setMirror] = useState(false);
   const [myCount, setMyCount] = useState(0);
   const [adding, setAdding] = useState(false);
+  const fileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     loadMyPoses().then((l) => setMyCount(l.length));
@@ -70,6 +71,7 @@ export default function Timer() {
       const all = [...cur, ...added];
       await saveMyPoses(all);
       setMyCount(all.length);
+      if (added.length) setSource('mes');
     } catch {
       setError('Impossible d’enregistrer ces photos sur le téléphone.');
     } finally {
@@ -227,24 +229,36 @@ export default function Timer() {
             {source === 'mes' && 'Tes propres photos de référence (par exemple des nus académiques), tirées au hasard. Elles restent sur ce téléphone.'}
             {source === 'melange' && (hasKey ? 'Moitié tes photos, moitié Unsplash, dans un ordre aléatoire.' : 'Sans clé Unsplash, seules tes photos sont utilisées.')}
           </p>
-          {(source === 'mes' || source === 'melange') && (
+          <div className="card my-poses">
+            <div className="row between">
+              <b>Mes photos de modèles</b>
+              <span className="tiny">
+                {myCount} photo{myCount > 1 ? 's' : ''}
+              </span>
+            </div>
             <div className="row wrap">
-              <label className="btn small" style={{ cursor: 'pointer' }}>
-                {adding ? 'Ajout…' : '+ Ajouter des photos'}
-                <input type="file" accept="image/*" multiple hidden onChange={(e) => {
-                    const files = Array.from(e.target.files || []);
-                    e.target.value = '';
-                    addPhotos(files);
-                  }} />
-              </label>
-              <span className="tiny">{myCount} photo{myCount > 1 ? 's' : ''} enregistrée{myCount > 1 ? 's' : ''}</span>
+              <button className="btn small" onClick={() => fileInput.current?.click()} disabled={adding}>
+                {adding ? 'Ajout en cours…' : '＋ Ajouter des photos'}
+              </button>
               {myCount > 0 && (
                 <button className="btn ghost small" onClick={clearPhotos}>
                   Tout effacer
                 </button>
               )}
             </div>
-          )}
+            <input
+              ref={fileInput}
+              type="file"
+              accept="image/*"
+              multiple
+              className="visually-hidden"
+              onChange={(e) => {
+                const files = Array.from(e.target.files || []);
+                e.target.value = '';
+                addPhotos(files);
+              }}
+            />
+          </div>
           {(source === 'unsplash' || source === 'melange') &&
             (hasKey ? (
               <button

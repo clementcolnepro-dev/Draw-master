@@ -18,6 +18,8 @@ export interface Guide {
   /** Auteur des dessins, si ce n'est pas un schéma généré. */
   author?: string;
   steps: GuideStep[];
+  /** Modèle en attente de planches photo : seul le titre est affiché. */
+  pending?: boolean;
 }
 
 export interface GuideCategory {

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { emptyProgress, loadProgress, saveProgress, uid, type ProgressData } from './db';
 import { allLessons, modules } from '../content';
-import { allGuides, guideCategories } from '../content/guides';
+import { readyGuides, guideCategories } from '../content/guides';
 import type { Lesson } from '../content/types';
 
 interface Ctx {
@@ -128,14 +128,15 @@ export const levels = [
 ];
 
 export function stats(p: ProgressData) {
-  const total = allGuides.length;
-  const done = allGuides.filter((g) => p.guides[g.id]).length;
+  const total = readyGuides.length;
+  const done = readyGuides.filter((g) => p.guides[g.id]).length;
   const pct = total ? Math.round((done / total) * 100) : 0;
   const level = [...levels].reverse().find((l) => pct >= l.min)!;
   const nextLevel = levels.find((l) => l.min > pct);
   const byCategory = guideCategories.map((c) => {
-    const n = c.guides.filter((g) => p.guides[g.id]).length;
-    return { id: c.id, title: c.title, icon: c.icon, done: n, total: c.guides.length, pct: Math.round((n / c.guides.length) * 100) };
+    const ready = c.guides.filter((g) => !g.pending);
+    const n = ready.filter((g) => p.guides[g.id]).length;
+    return { id: c.id, title: c.title, icon: c.icon, done: n, total: ready.length, pct: ready.length ? Math.round((n / ready.length) * 100) : 0 };
   });
   const byModule = modules.map((m) => {
     const n = m.lessons.filter((l) => p.completed[l.id]).length;

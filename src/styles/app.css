@@ -355,3 +355,12 @@ textarea { resize: vertical; }
 .pose-credit { display: block; font-size: .7rem; color: var(--muted); margin-top: 6px; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .timer.pose .row { margin-top: .6rem; }
 .error-notice { background: #3a2626; border-color: #6a3a34; }
+
+/* Modèles en attente de planches photo */
+.pending-card { opacity: .6; cursor: default; }
+.pending-thumb { aspect-ratio: 1; width: 100%; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--line); background: transparent; }
+.pending-thumb span { font-size: .75rem; color: var(--muted); font-style: italic; }
+
+.my-poses { margin: 0; }
+.my-poses .row { margin-top: .5rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }

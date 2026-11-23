@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useProgress, stats } from '../lib/progress';
 import { dailyExercises, isDone } from '../lib/daily';
-import { allGuides, guideById, categoryOfGuide } from '../content/guides';
+import { readyGuides, guideById, categoryOfGuide } from '../content/guides';
 import { GuideCover } from '../components/GuideFigure';
 import { Bar, Ring, Section } from '../components/ui';
 
@@ -15,7 +15,8 @@ function greeting() {
 export default function Home() {
   const { p, logExercise } = useProgress();
   const s = stats(p);
-  const next = (p.lastGuide && guideById(p.lastGuide)) || allGuides.find((g) => !p.guides[g.id]);
+  const last = p.lastGuide ? guideById(p.lastGuide) : undefined;
+  const next = (last && !last.pending ? last : undefined) || readyGuides.find((g) => !p.guides[g.id]);
   const daily = dailyExercises(p);
 
   return (

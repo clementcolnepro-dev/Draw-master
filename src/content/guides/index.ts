@@ -2,8 +2,11 @@ import type { Guide, GuideCategory } from './types';
 import { corpsFemme, corpsHomme } from './corps';
 import { corpsFemmeClement } from './clement';
 import { oeilRealiste, nezRealiste, boucheRealiste, oreilleRealiste, mainVues, mainRealiste, piedVues, piedRealiste, bassinFemme, bassinHomme, fessiersFemme, basventreFemme, torseFemme } from './realistes';
-import { teteFace, oreille, pied, jean, robe } from './nouveaux';
+import { teteFace, jean, robe } from './nouveaux';
 import { allLessons } from '../index';
+
+/** Modèle en attente : on garde le nom, les schémas vectoriels sont retirés en attendant les planches photo. */
+const attente = (g: Guide): Guide => ({ id: g.id, title: g.title, level: g.level, viewBox: '', layers: [], steps: [], pending: true });
 
 /** Réutilise la démonstration illustrée d'une fiche de cours comme dessin guidé. */
 function fromLesson(id: string, title: string, level: Guide['level'] = 'Moyen'): Guide {
@@ -19,11 +22,11 @@ export const guideCategories: GuideCategory[] = [
     icon: '⟟',
     guides: [
       corpsFemmeClement,
-      corpsFemme,
-      corpsHomme,
-      fromLesson('c1-proportions', 'Proportions : la grille de 8 têtes', 'Facile'),
-      fromLesson('c2-mannequin', 'Mannequin en volumes (pose naturelle)', 'Facile'),
-      fromLesson('c5-mouvement', 'Corps en mouvement', 'Avancé')
+      attente(corpsFemme),
+      attente(corpsHomme),
+      attente(fromLesson('c1-proportions', 'Proportions : la grille de 8 têtes', 'Facile')),
+      attente(fromLesson('c2-mannequin', 'Mannequin en volumes (pose naturelle)', 'Facile')),
+      attente(fromLesson('c5-mouvement', 'Corps en mouvement', 'Avancé'))
     ]
   },
   {
@@ -32,10 +35,10 @@ export const guideCategories: GuideCategory[] = [
     subtitle: 'En partant d’un cercle',
     icon: '◯',
     guides: [
-      teteFace,
-      fromLesson('b1-crane', 'Construction de la tête (Loomis)', 'Facile'),
-      fromLesson('b2-face', 'Proportions du visage de face', 'Facile'),
-      fromLesson('b3-profil', 'Tête de profil')
+      attente(teteFace),
+      attente(fromLesson('b1-crane', 'Construction de la tête (Loomis)', 'Facile')),
+      attente(fromLesson('b2-face', 'Proportions du visage de face', 'Facile')),
+      attente(fromLesson('b3-profil', 'Tête de profil'))
     ]
   },
   {
@@ -43,14 +46,14 @@ export const guideCategories: GuideCategory[] = [
     title: 'Éléments du visage',
     subtitle: 'Œil, nez, bouche, oreille',
     icon: '◉',
-    guides: [oeilRealiste, fromLesson('b4-oeil', 'Œil (schéma)'), nezRealiste, fromLesson('b5-nez', 'Nez (schéma)'), boucheRealiste, fromLesson('b6-bouche', 'Bouche (schéma)'), oreilleRealiste, oreille]
+    guides: [oeilRealiste, nezRealiste, boucheRealiste, oreilleRealiste]
   },
   {
     id: 'membres',
     title: 'Parties du corps',
     subtitle: 'Torse, mains, pieds',
     icon: '✋',
-    guides: [torseFemme, bassinFemme, bassinHomme, basventreFemme, fessiersFemme, fromLesson('c3-cage-bassin', 'Torse : cage thoracique et bassin'), mainRealiste, mainVues, fromLesson('c4-mains', 'Main (schéma)'), piedRealiste, piedVues, pied]
+    guides: [torseFemme, bassinFemme, bassinHomme, basventreFemme, fessiersFemme, attente(fromLesson('c3-cage-bassin', 'Torse : cage thoracique et bassin')), mainRealiste, mainVues, piedRealiste, piedVues]
   },
   {
     id: 'vetements',
@@ -58,13 +61,13 @@ export const guideCategories: GuideCategory[] = [
     subtitle: 'Tissus, plis, habits',
     icon: '≋',
     guides: [
-      fromLesson('d5-tshirt', 'T-shirt'),
-      jean,
-      robe,
-      fromLesson('d1-tension', 'Tissu suspendu (point de tension)', 'Facile'),
-      fromLesson('d2-compression', 'Manche retroussée (compression)'),
-      fromLesson('d3-suspendus', 'Drapé entre deux points'),
-      fromLesson('d4-zigzag', 'Pantalon au genou plié')
+      attente(fromLesson('d5-tshirt', 'T-shirt')),
+      attente(jean),
+      attente(robe),
+      attente(fromLesson('d1-tension', 'Tissu suspendu (point de tension)', 'Facile')),
+      attente(fromLesson('d2-compression', 'Manche retroussée (compression)')),
+      attente(fromLesson('d3-suspendus', 'Drapé entre deux points')),
+      attente(fromLesson('d4-zigzag', 'Pantalon au genou plié'))
     ]
   },
   {
@@ -73,19 +76,21 @@ export const guideCategories: GuideCategory[] = [
     subtitle: 'Sphère, cube, matières',
     icon: '◐',
     guides: [
-      fromLesson('a2-volumes', 'Cube, cylindre, sphère', 'Facile'),
-      fromLesson('a4-lumiere', 'Sphère ombrée', 'Facile'),
-      fromLesson('a3-perspective', 'Boîte en perspective', 'Facile'),
-      fromLesson('a6-mesures', 'Mug d’observation', 'Facile'),
-      fromLesson('e1-ombres', 'Ombre portée d’un cube'),
-      fromLesson('e2-matieres', 'Matières : mat, brillant, métal, verre', 'Avancé'),
-      fromLesson('e3-photo', 'Reproduire une photo (grille)'),
-      fromLesson('a1-trait', 'Échauffement du trait', 'Facile'),
-      fromLesson('a5-valeurs', 'Valeurs et hachures', 'Facile')
+      attente(fromLesson('a2-volumes', 'Cube, cylindre, sphère', 'Facile')),
+      attente(fromLesson('a4-lumiere', 'Sphère ombrée', 'Facile')),
+      attente(fromLesson('a3-perspective', 'Boîte en perspective', 'Facile')),
+      attente(fromLesson('a6-mesures', 'Mug d’observation', 'Facile')),
+      attente(fromLesson('e1-ombres', 'Ombre portée d’un cube')),
+      attente(fromLesson('e2-matieres', 'Matières : mat, brillant, métal, verre', 'Avancé')),
+      attente(fromLesson('e3-photo', 'Reproduire une photo (grille)')),
+      attente(fromLesson('a1-trait', 'Échauffement du trait', 'Facile')),
+      attente(fromLesson('a5-valeurs', 'Valeurs et hachures', 'Facile'))
     ]
   }
 ];
 
 export const allGuides: Guide[] = guideCategories.flatMap((c) => c.guides);
+/** Modèles réellement disponibles (hors modèles en attente). */
+export const readyGuides: Guide[] = allGuides.filter((g) => !g.pending);
 export const guideById = (id: string) => allGuides.find((g) => g.id === id);
 export const categoryOfGuide = (id: string) => guideCategories.find((c) => c.guides.some((g) => g.id === id));

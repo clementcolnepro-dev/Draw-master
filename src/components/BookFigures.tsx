@@ -6,7 +6,7 @@ import { GuideFigure } from './GuideFigure';
 export function BookFigure({ fig }: { fig: BookFig }) {
   if ('g' in fig) {
     const guide = guideById(fig.g);
-    if (!guide) return null;
+    if (!guide || guide.pending) return <div className="bk-pending">Illustration à venir</div>;
     return <GuideFigure g={guide} step={Math.min(fig.step, guide.steps.length - 1)} />;
   }
   if ('layers' in fig) return <LayerStack layers={fig.layers} />;
