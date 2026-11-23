@@ -300,6 +300,22 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Torse — homme',
+        pages: [
+          p('L’axe et les épaules', 'Commence par deux lignes seulement : l’axe vertical du torse et la ligne des épaules. Chez l’homme, les épaules sont larges, à peu près deux têtes.', g('torse-homme', 0)),
+          p('Les grandes formes', 'Pose un grand ovale pour la cage thoracique, un cylindre pour le cou et un ovale plus petit pour le bassin. Ces trois formes donnent déjà les proportions.', g('torse-homme', 1)),
+          p('Épaules et bras', 'Place un cercle à chaque extrémité de la ligne des épaules, puis les bras en tubes simples. Les cercles des épaules débordent largement de la cage.', g('torse-homme', 2)),
+          p('La taille', 'Trace la ligne de la taille et relie légèrement les formes entre elles. Chez l’homme, la taille est peu marquée : le torse descend presque droit.', g('torse-homme', 3)),
+          p('Les repères', 'Ajoute les clavicules, le sternum en trait vertical, l’arc costal en V inversé et le nombril. Ces repères osseux guideront les muscles.', g('torse-homme', 4)),
+          p('Le premier contour', 'Relie toutes les formes par un contour léger : cou, trapèzes, épaules, flancs. Tu obtiens la silhouette du torse, sans aucun muscle.', g('torse-homme', 5)),
+          p('Les blocs', 'Durcis la construction : cylindre du cou, sphères des épaules, plaque de la cage avec le sternum et l’arc costal. Pense en volumes, pas en lignes.', g('torse-homme', 6)),
+          p('Les masses musculaires', 'Pose les pectoraux en deux plaques carrées, les deltoïdes en gouttes sur les épaules et les abdominaux en petits blocs. Les obliques remplissent les flancs.', g('torse-homme', 7)),
+          p('Le contour définitif', 'Passe au contour en suivant les muscles : il est plus anguleux que chez la femme, avec des cassures nettes aux épaules et sous les pectoraux.', g('torse-homme', 8)),
+          p('Les ombres', 'Ombre en hachures sous les pectoraux, entre les abdominaux, sous les clavicules et sur les côtés de la cage. Les hachures suivent la forme de chaque muscle.', g('torse-homme', 9)),
+          p('Le rendu final', 'Garde des transitions franches pour montrer la musculature, efface la construction et pose des lumières nettes sur le haut des pectoraux et des épaules.', g('torse-homme', 10))
+        ]
+      },
+      {
         title: 'Bras et jambes',
         pages: [
           p('Les membres en tubes', 'Construis bras et jambes avec des cylindres souples : un pour le haut, un pour le bas. Ils s’affinent vers le coude, le poignet, le genou et la cheville.', g('corps-homme', 3)),

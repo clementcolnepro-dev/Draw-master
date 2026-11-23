@@ -223,3 +223,25 @@ export const torseFemme: Guide = {
     { title: 'Rendu final façon marbre' }
   ]
 };
+
+export const torseHomme: Guide = {
+  id: 'torse-homme',
+  title: 'Torse — homme (de face)',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('torse-homme', 11),
+  steps: [
+    { title: 'Axe central et ligne des épaules' },
+    { title: 'Ovale de la cage, cylindre du cou, ovale du bassin' },
+    { title: 'Cercles des épaules et bras en tubes' },
+    { title: 'Ligne de la taille et premières liaisons' },
+    { title: 'Clavicules, sternum, arc costal, nombril' },
+    { title: 'Premier contour léger du torse' },
+    { title: 'Blocs : cou, épaules, cage et arc costal', tip: 'Les épaules sont des sphères posées aux extrémités des clavicules' },
+    { title: 'Masses musculaires : pectoraux, deltoïdes, abdominaux' },
+    { title: 'Contour définitif plus anguleux' },
+    { title: 'Ombres en hachures' },
+    { title: 'Rendu final façon marbre' }
+  ]
+};
