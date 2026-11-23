@@ -245,3 +245,21 @@ export const torseHomme: Guide = {
     { title: 'Rendu final façon marbre' }
   ]
 };
+
+export const fessiersHomme: Guide = {
+  id: 'fessiers-homme',
+  title: 'Fessiers — homme (de dos)',
+  level: 'Moyen',
+  viewBox: '',
+  layers: [],
+  images: imgs('fessiers-homme', 7),
+  steps: [
+    { title: 'Axe de la colonne et ligne des crêtes iliaques' },
+    { title: 'Le bassin en boîte et les deux masses fessières' },
+    { title: 'Construction complète : sacrum, ovales, cuisses en cylindres', tip: 'Le sacrum en losange marque le centre du bassin' },
+    { title: 'Formes des muscles sur la construction' },
+    { title: 'Contour définitif au trait' },
+    { title: 'Grandes masses d’ombre en hachures' },
+    { title: 'Rendu final' }
+  ]
+};

@@ -138,6 +138,18 @@ export const books: Book[] = [
         ]
       },
       {
+        title: 'Fessiers — homme',
+        pages: [
+          p('Deux lignes', 'Commence par l’axe de la colonne et la ligne des crêtes iliaques, le haut du bassin. Leur croisement place le centre de toute la construction.', g('fessiers-homme', 0)),
+          p('Le bassin en boîte', 'Pose le bassin en boîte sous la ligne des crêtes iliaques, puis les deux masses fessières à l’intérieur. Chez l’homme, la boîte est étroite et haute.', g('fessiers-homme', 1)),
+          p('La construction complète', 'Ajoute le sacrum en losange au centre, un ovale pour chaque fessier et les cuisses en cylindres. Vérifie que tout reste symétrique de part et d’autre de l’axe.', g('fessiers-homme', 2)),
+          p('Les muscles', 'Dessine les formes des muscles par-dessus : le moyen fessier sur le côté de la hanche, le grand fessier compact, et le creux sur le côté de la hanche, typique de l’homme.', g('fessiers-homme', 3)),
+          p('Le contour définitif', 'Passe au contour en gardant des formes plus carrées que chez la femme : hanches étroites, fessiers compacts, plis fessiers courts.', g('fessiers-homme', 4)),
+          p('Les grandes ombres', 'Pose les grandes masses d’ombre en hachures : le côté opposé à la lumière, le creux des hanches, le dessous des fessiers et l’intérieur des cuisses.', g('fessiers-homme', 5)),
+          p('Le rendu final', 'Modèle les volumes avec des demi-teintes, garde les transitions franches pour la musculature et pose des lumières sur le haut des fessiers et des cuisses.', g('fessiers-homme', 6))
+        ]
+      },
+      {
         title: 'Bassin et hanches — homme',
         pages: [
           p('Les repères', 'Trace l’axe central, la taille, la ligne des crêtes iliaques et celle des plis de l’aine. Chez l’homme, la taille est peu marquée : le torse descend presque droit vers les hanches.', g('bassin-homme', 0)),
